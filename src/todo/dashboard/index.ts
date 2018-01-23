@@ -1,2 +1,2 @@
-export * from './components';
+export * from './containers';
 export { DashboardModule } from './dashboard.module';
