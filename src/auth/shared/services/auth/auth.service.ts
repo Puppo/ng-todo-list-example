@@ -2,18 +2,34 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+
+import { ApiUrl } from '../../../../constants';
+import { IUser } from '../../models';
 
 @Injectable()
 export class AuthService {
+  readonly AUTH_URL = '/auths';
   constructor(
     protected http: HttpClient,
     @Inject(ApiUrl) protected url: string
   ) {}
 
-  register(email: string, password: string): Observable<boolean> {
+  register(email: string, password: string): Observable<void> {
     const body = { email, password };
-    return this.http.post(`${this.url}/api/login`, body);
+    return this.http.post<void>(`${this.url}${this.AUTH_URL}`, body);
   }
 
-  login(email: string, password: string): Observable<boolean> {}
+  login(email: string, password: string): Observable<string> {
+    const options = {
+      params: {
+        email,
+        password
+      }
+     };
+    return this.http.get<IUser>(`${this.url}${this.AUTH_URL}`, options)
+    .pipe(
+      map(x => x.id)
+    );
+  }
 }

@@ -19,7 +19,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
       </mat-form-field>
 
       <mat-form-field class="auth-field">
-        <input matInput="password"
+        <input type="password"
+        matInput
         placeholder="Password"
         formControlName="password" />
         <mat-error *ngIf="passwordInvalid">Password is required</mat-error>

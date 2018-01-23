@@ -4,26 +4,53 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material';
 
-import { AuthModule } from '../auth';
+import { environment } from '../environments/environment';
 
+import {
+  StoreRouterConnectingModule,
+  RouterStateSerializer,
+} from '@ngrx/router-store';
+import { StoreModule, MetaReducer } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { reducers, effects, CustomSerializer } from './store';
+
+// not used in production
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { storeFreeze } from 'ngrx-store-freeze';
+
+import { AuthModule } from '../auth';
 import { AppComponent } from './app.component';
 
-const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'auth'}
+import { ApiUrl } from '../constants';
+
+export const metaReducers: MetaReducer<any>[] = !environment.production
+  ? [storeFreeze]
+  : [];
+
+const ROUTES: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'auth' }
 ];
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes),
     MatToolbarModule,
+    RouterModule.forRoot(ROUTES),
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot(effects),
+    StoreRouterConnectingModule,
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     AuthModule
   ],
   declarations: [
     AppComponent
   ],
-  providers: [],
+  providers: [
+    { provide: ApiUrl, useValue: 'http://localhost:3000' },
+    { provide: RouterStateSerializer, useClass: CustomSerializer }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

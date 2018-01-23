@@ -4,12 +4,16 @@ function authenticated(req, res, next) {
   if (isAuthorized(req)) {
     next();
   } else {
-    res.sendStatus(401)
+    res.sendStatus(401);
   }
 }
 
 function isAuthorized(req) {
-  if (req.url.indexOf('auth') !== -1) {
+  if (
+    req.url.indexOf('auth') !== -1 ||
+    req.url.indexOf('__rules') !== -1 ||
+    req.url.indexOf('db') !== -1
+  ) {
     return true;
   }
 
@@ -23,4 +27,4 @@ function isAuthorized(req) {
   return true;
 }
 
-module.exports = {authenticated};
+module.exports = { authenticated };

@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
@@ -9,6 +10,7 @@ import * as fromServices from './services';
 @NgModule({
   imports: [
     CommonModule,
+    HttpClientModule,
     ReactiveFormsModule,
     MatCardModule,
     MatInputModule,
@@ -19,9 +21,15 @@ import * as fromServices from './services';
   ],
   exports: [
     ...fromComponents.AuthComponents
-  ],
-  providers: [
-    ...fromServices.AuthSharedServices
   ]
 })
-export class AuthSharedModule { }
+export class AuthSharedModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AuthSharedModule,
+      providers: [
+        ...fromServices.AuthSharedServices
+      ]
+    };
+  }
+}
