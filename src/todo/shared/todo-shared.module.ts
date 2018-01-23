@@ -2,10 +2,16 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import {
+  MatCardModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatButtonModule,
+  MatDatepickerModule,
+  MatNativeDateModule
+} from '@angular/material';
 
 import * as fromComponents from './components';
-import * as fromGuards from './guards';
 import * as fromServices from './services';
 
 @NgModule({
@@ -15,23 +21,19 @@ import * as fromServices from './services';
     ReactiveFormsModule,
     MatCardModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  declarations: [
-    ...fromComponents.AuthComponents
-  ],
-  exports: [
-    ...fromComponents.AuthComponents
-  ]
+  declarations: [...fromComponents.TodoComponents],
+  exports: [...fromComponents.TodoComponents]
 })
-export class AuthSharedModule {
+export class TodoSharedModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: AuthSharedModule,
-      providers: [
-        ...fromGuards.AuthGuards,
-        ...fromServices.AuthSharedServices
-      ]
+      ngModule: TodoSharedModule,
+      providers: [...fromServices.TodoSharedServices]
     };
   }
 }

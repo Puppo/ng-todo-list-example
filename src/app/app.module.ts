@@ -20,6 +20,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
 
 import { AuthModule } from '../auth';
+import { TodoModule } from '../todo';
+
 import { AppComponent } from './app.component';
 
 import { ApiUrl } from '../constants';
@@ -29,7 +31,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
   : [];
 
 const ROUTES: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'auth' }
+  { path: '', pathMatch: 'full', redirectTo: 'auth' },
 ];
 
 @NgModule({
@@ -42,7 +44,8 @@ const ROUTES: Routes = [
     EffectsModule.forRoot(effects),
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    AuthModule
+    AuthModule,
+    TodoModule
   ],
   declarations: [
     AppComponent

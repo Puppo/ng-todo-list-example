@@ -9,7 +9,7 @@ export interface ILoginState {
   error: any;
 }
 
-export const INIT_AUTH_STATE: ILoginState = {
+export const INIT_LOGIN_STATE: ILoginState = {
   email: null,
   token: null,
   loading: false,
@@ -17,7 +17,7 @@ export const INIT_AUTH_STATE: ILoginState = {
 };
 
 export function reducer(
-  state = INIT_AUTH_STATE,
+  state = INIT_LOGIN_STATE,
   action: fromActions.LoginActions
 ): ILoginState {
   switch (action.type) {

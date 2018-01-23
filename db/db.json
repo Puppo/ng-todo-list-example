@@ -1,24 +1,11 @@
 {
   "auths": [
     {
-      "email": "prova12345@prova.it",
-      "password": "1234",
-      "id": 1
-    },
-    {
       "email": "luca.delpuppo@aton.eu",
       "password": "123456",
-      "id": 2
-    },
-    {
-      "email": "luca.delpuo@aton.eu",
-      "password": "123456",
-      "id": 3
-    },
-    {
-      "email": "luca@aton.eu",
-      "password": "123456",
-      "id": 4
+      "createdAt": 1516714103952,
+      "updateAt": 1516714103954,
+      "id": 1
     }
   ],
   "todos": []
