@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  background: #303030;
+}
+
+.app-title {
+  color: white;
+  text-decoration: none;
+}
+
+.mat-card {
+  background: #424242;
+  color: white;
+}

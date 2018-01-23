@@ -17,8 +17,8 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "",
       "styles": [
+        "../node_modules/@angular/material/prebuilt-themes/purple-green.css",
         "styles.scss"
       ],
       "scripts": [],

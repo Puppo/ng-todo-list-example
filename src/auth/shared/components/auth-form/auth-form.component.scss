@@ -1,0 +1,28 @@
+.auth-form {
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+
+  @media only screen and (max-width: 680px) {
+    width: 90%;
+  }
+
+  .auth-field {
+    width: 100%;
+  }
+
+  &__action {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  &__toggle {
+    margin-top: 10px;
+  }
+}

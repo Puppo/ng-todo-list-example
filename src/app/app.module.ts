@@ -1,18 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AuthModule } from '../auth';
 
 import { AppComponent } from './app.component';
 
+const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'auth'}
+];
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
+    MatToolbarModule,
+    AuthModule
+  ],
+  declarations: [
+    AppComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
