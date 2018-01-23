@@ -27,9 +27,14 @@ export class AuthService {
         password
       }
      };
-    return this.http.get<IUser>(`${this.url}${this.AUTH_URL}`, options)
+    return this.http.get<IUser[]>(`${this.url}${this.AUTH_URL}`, options)
     .pipe(
-      map(x => x.id)
+      map(x => {
+        if (!!x && x.length === 1) {
+          return x[0].id;
+        }
+        throw new Error('Invalid login');
+      })
     );
   }
 }
