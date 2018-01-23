@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 import * as fromComponents from './components';
+import * as fromServices from './services';
 
 @NgModule({
   imports: [
@@ -18,6 +19,9 @@ import * as fromComponents from './components';
   ],
   exports: [
     ...fromComponents.AuthComponents
+  ],
+  providers: [
+    ...fromServices.AuthSharedServices
   ]
 })
 export class AuthSharedModule { }

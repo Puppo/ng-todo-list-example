@@ -1,3 +1,15 @@
 {
-
+  "auths": [
+    {
+      "email": "prova@prova.it",
+      "password": "1234",
+      "id": 1
+    },
+    {
+      "email": "prova12345@prova.it",
+      "password": "1234",
+      "id": 2
+    }
+  ],
+  "todos": []
 }

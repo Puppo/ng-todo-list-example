@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start:api": "json-server --watch ./db/db.json --config ./db/json-server.json --routes ./db/routes.json >> ./db/json-server.log 2>&1 </dev/null &",
+    "start:api": "node ./db/server.js",
     "start:ui": "ng serve",
     "start": "npm run start:api && npm run start:ui",
     "build": "ng build --prod",
