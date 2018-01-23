@@ -2,6 +2,6 @@ import { DashboardComponent } from './dashboard';
 
 export * from './dashboard';
 
-export const DashboardComponents: any[] = [
+export const DashboardContainers: any[] = [
   DashboardComponent
 ];

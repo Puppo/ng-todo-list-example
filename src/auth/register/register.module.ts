@@ -7,7 +7,7 @@ import { AuthSharedModule } from '../shared';
 
 import * as fromContainers from './containers';
 
-export const ROUTES: Routes = [
+const ROUTES: Routes = [
   { path: '', component: fromContainers.RegisterComponent }
 ];
 

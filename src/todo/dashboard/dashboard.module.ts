@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
+import * as fromAuth from '../../auth';
 import { TodoSharedModule } from '../shared';
 
-import * as fromComponents from './components';
+import * as fromContainers from './containers';
 
 const ROUTES: Routes = [
-  { path: '', component: fromComponents.DashboardComponent }
+  { path: '', component: fromContainers.DashboardComponent, canActivate: [fromAuth.AuthenticatedGuard] }
 ];
 
 @NgModule({
@@ -17,10 +18,10 @@ const ROUTES: Routes = [
     TodoSharedModule
   ],
   declarations: [
-    ...fromComponents.DashboardComponents
+    ...fromContainers.DashboardContainers
   ],
   exports: [
-    ...fromComponents.DashboardComponents
+    ...fromContainers.DashboardContainers
   ]
 })
 export class DashboardModule {}
