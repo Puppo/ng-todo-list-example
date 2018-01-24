@@ -35,26 +35,4 @@ export class TodoListEffect {
       );
     })
   );
-
-  @Effect()
-  delete$ = this.actions$
-  .ofType<fromActions.TodoDeleteAction>(fromActions.TODO_DELETE_ACTION)
-  .pipe(
-    withLatestFrom(this.store.select(fromAuth.getLoginTokenSelector)),
-    switchMap(([action, token]) => {
-      const { id } = action;
-      return this.todoSv.delete(token, id)
-      .pipe(
-        map(todos => new fromActions.TodoDeleteSuccessAction()),
-        catchError(error => of(new fromActions.TodoDeleteFailAction(error)))
-      );
-    })
-  );
-
-  @Effect()
-  deleteSuccess$ = this.actions$
-  .ofType<fromActions.TodoDeleteSuccessAction>(fromActions.TODO_DELETE_SUCCESS_ACTION)
-  .pipe(
-    map(action => new fromActions.TodoListAction())
-  );
 }

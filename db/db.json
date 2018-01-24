@@ -28,15 +28,6 @@
       "id": 3
     },
     {
-      "description": "Smart meeting",
-      "dueDate": 1517266800000,
-      "completed": false,
-      "email": "luca.delpuppo@aton.eu",
-      "createdAt": 1516753492296,
-      "updateAt": 1516753492297,
-      "id": 4
-    },
-    {
       "description": "Smart presentations",
       "dueDate": 1516748400000,
       "completed": false,
