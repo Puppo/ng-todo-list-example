@@ -16,4 +16,13 @@ export class LoginFailAction implements Action {
   constructor(public error: any) {}
 }
 
-export type LoginActions = LoginAction | LoginSuccessAction | LoginFailAction;
+export const LOGOUT_ACTION = '[Auth] Logout';
+export class LogoutAction implements Action {
+  readonly type = LOGOUT_ACTION;
+}
+
+export type LoginActions =
+  | LoginAction
+  | LoginSuccessAction
+  | LoginFailAction
+  | LogoutAction;

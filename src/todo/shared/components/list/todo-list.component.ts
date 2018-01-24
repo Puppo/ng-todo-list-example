@@ -26,7 +26,7 @@ import { ITodo } from '../../models';
         <h4 mat-line>{{todo.description}}</h4>
         <p mat-line *ngIf="!todo.completed"> {{dueDateFormat(todo.dueDate)}} </p>
         <button mat-icon-button (click)="onDelete(todo)">
-            <mat-icon>delete</mat-icon>
+          <mat-icon>delete</mat-icon>
         </button>
       </mat-list-item>
       <mat-list-item *ngIf="!todos || !todos.length">

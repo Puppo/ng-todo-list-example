@@ -27,6 +27,8 @@ export function reducer(
       return handleLoginSuccess(state, action);
     case fromActions.LOGIN_FAIL_ACTION:
       return handleLoginFail(state, action);
+    case fromActions.LOGOUT_ACTION:
+      return handleLogout(state, action);
 
     default:
       return state;
@@ -72,6 +74,23 @@ function handleLoginFail(
   const token = null;
   const loading = false;
   const { error } = action;
+  return {
+    ...state,
+    email,
+    token,
+    loading,
+    error
+  };
+}
+
+function handleLogout(
+  state: ILoginState,
+  action: fromActions.LogoutAction
+): ILoginState {
+  const email = null;
+  const token = null;
+  const loading = false;
+  const error = null;
   return {
     ...state,
     email,

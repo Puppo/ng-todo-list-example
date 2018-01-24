@@ -62,7 +62,16 @@ export class AuthEffect {
     .ofType<fromActions.RegisterSuccessAction>(fromActions.REGISTER_SUCCESS_ACTION)
     .pipe(
       map(x => new fromRoot.Go({
-        path: ['/auth/login']
+        path: ['/auth']
+      }))
+    );
+
+  @Effect()
+  logout$ = this.actions$
+    .ofType<fromActions.LogoutAction>(fromActions.LOGOUT_ACTION)
+    .pipe(
+      map(x => new fromRoot.Go({
+        path: ['/auth']
       }))
     );
 }
