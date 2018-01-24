@@ -14,8 +14,16 @@ export const ROUTES: Routes = [
     path: 'auth',
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'login' },
-      { path: 'login', loadChildren: './login/login.module#LoginModule' },
-      { path: 'register', loadChildren: './register/register.module#RegisterModule' },
+      {
+        path: 'login',
+        loadChildren: './login/login.module#LoginModule',
+        canActivate: [fromGuards.NotAuthenticatedGuard]
+      },
+      {
+        path: 'register',
+        loadChildren: './register/register.module#RegisterModule',
+        canActivate: [fromGuards.NotAuthenticatedGuard]
+      }
     ]
   }
 ];
@@ -28,8 +36,6 @@ export const ROUTES: Routes = [
     StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature(effects)
   ],
-  providers: [
-    ...fromGuards.AuthGuards
-  ]
+  providers: [...fromGuards.AuthGuards]
 })
 export class AuthModule {}

@@ -15,7 +15,10 @@ const ROUTES: Routes = [
     path: 'todo',
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-      { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' }
+      {
+        path: 'dashboard',
+        loadChildren: './dashboard/dashboard.module#DashboardModule'
+      }
     ]
   }
 ];
@@ -27,7 +30,7 @@ const ROUTES: Routes = [
     TodoSharedModule.forRoot(),
     DashboardModule,
     StoreModule.forFeature('todo', reducers),
-    EffectsModule.forFeature(effects),
+    EffectsModule.forFeature(effects)
   ]
 })
 export class TodoModule {}

@@ -15,7 +15,7 @@ import {
   StoreRouterConnectingModule,
   RouterStateSerializer
 } from '@ngrx/router-store';
-import { StoreModule, MetaReducer } from '@ngrx/store';
+import { StoreModule, MetaReducer, ActionReducer } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { reducers, effects, CustomSerializer } from './store';
@@ -23,6 +23,7 @@ import { reducers, effects, CustomSerializer } from './store';
 // not used in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
+import { localStorageSync } from 'ngrx-store-localstorage';
 
 import { AuthModule } from '../auth';
 import { TodoModule } from '../todo';
@@ -30,9 +31,18 @@ import { ApiUrl } from '../constants';
 
 import * as fromContainers from './containers';
 
+export function localStorageSyncReducer(
+  reducer: ActionReducer<any>
+): ActionReducer<any> {
+  return localStorageSync({
+    keys: ['auth', 'todo'],
+    rehydrate: true
+  })(reducer);
+}
+
 export const metaReducers: MetaReducer<any>[] = !environment.production
-  ? [storeFreeze]
-  : [];
+  ? [storeFreeze, localStorageSyncReducer]
+  : [localStorageSyncReducer];
 
 const ROUTES: Routes = [{ path: '', pathMatch: 'full', redirectTo: 'auth' }];
 
