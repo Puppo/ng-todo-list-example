@@ -10,15 +10,15 @@ export const getRegisterSelector = createSelector(
 
 export const getRegisterLoadingSelector = createSelector(
   getRegisterSelector,
-  (state: fromRegister.IRegisterState) => state.loading
+  fromRegister.getRegisterLoading
 );
 
 export const getRegisterSuccessSelector = createSelector(
   getRegisterSelector,
-  (state: fromRegister.IRegisterState) => state.success
+  fromRegister.getRegisterSuccess
 );
 
 export const getRegisterErrorSelector = createSelector(
   getRegisterSelector,
-  (state: fromRegister.IRegisterState) => state.error
+  fromRegister.getRegisterError
 );

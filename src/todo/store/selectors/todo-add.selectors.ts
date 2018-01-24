@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 
 import * as fromFeature from '../reducers';
-import * as fromTodoAdd from '../reducers/todo-add.reducers';
+import * as fromTodoAdd from '../reducers/todo-add.reducer';
 
 export const getTodoAddSelector = createSelector(
   fromFeature.getTodoSelector,
