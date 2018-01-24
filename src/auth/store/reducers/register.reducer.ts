@@ -8,14 +8,14 @@ export interface IRegisterState {
   error: any;
 }
 
-export const INIT_AUTH_STATE: IRegisterState = {
+export const INIT_REGISTER_STATE: IRegisterState = {
   loading: false,
   success: false,
   error: null
 };
 
 export function reducer(
-  state = INIT_AUTH_STATE,
+  state = INIT_REGISTER_STATE,
   action: fromActions.RegisterActions
 ): IRegisterState {
   switch (action.type) {
@@ -56,6 +56,7 @@ function handleRegisterSuccess(
   return {
     ...state,
     loading,
+    success,
     error
   };
 }

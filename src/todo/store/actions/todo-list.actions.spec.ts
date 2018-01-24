@@ -19,19 +19,19 @@ describe('Todo List', () => {
       const todos: ITodo[] = [
         {
           id: 1,
-          description: 'Prova 1',
+          description: 'Test 1',
           dueDate: Date.now(),
           completed: false,
-          email: 'prova1@prova.it',
+          email: 'test@test.it',
           createAt: Date.now(),
           updateAt: Date.now()
         },
         {
           id: 2,
-          description: 'Prova 2',
+          description: 'Test 2',
           dueDate: new Date(2018, 1, 3).getTime(),
           completed: true,
-          email: 'prova2@prova.it',
+          email: 'test@test.it',
           createAt: new Date(2018, 1, 2).getTime(),
           updateAt: new Date(2018, 1, 3).getTime()
         }

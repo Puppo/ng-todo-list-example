@@ -14,7 +14,7 @@ export const INIT_TODO_LIST_STATE: ITodoListState = {
   todos: null
 };
 
-export function reducers(
+export function reducer(
   state = INIT_TODO_LIST_STATE,
   action: fromActions.TodoListActions
 ): ITodoListState {
@@ -64,7 +64,7 @@ function handleListFail(
   action: fromActions.TodoListFailAction
 ): ITodoListState {
   const loading = false;
-  const error = null;
+  const {error} = action;
   return {
     ...state,
     loading,

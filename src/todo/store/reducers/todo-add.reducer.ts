@@ -5,13 +5,13 @@ export interface ITodoAddState {
   error: any;
 }
 
-export const INIT_TODO_STATE: ITodoAddState = {
+export const INIT_TODO_ADD_STATE: ITodoAddState = {
   loading: false,
   error: null
 };
 
 export function reducer(
-  state = INIT_TODO_STATE,
+  state = INIT_TODO_ADD_STATE,
   action: fromActions.TodoAddActions
 ): ITodoAddState {
   switch (action.type) {

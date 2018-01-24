@@ -1,7 +1,7 @@
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
-import * as fromTodoAdd from './todo-add.reducers';
-import * as fromTodoList from './todo-list.reducers';
+import * as fromTodoAdd from './todo-add.reducer';
+import * as fromTodoList from './todo-list.reducer';
 
 export interface ITodoState {
   add: fromTodoAdd.ITodoAddState;
@@ -10,7 +10,7 @@ export interface ITodoState {
 
 export const reducers: ActionReducerMap<ITodoState> = {
   add: fromTodoAdd.reducer,
-  list: fromTodoList.reducers
+  list: fromTodoList.reducer
 };
 
 export const getTodoSelector = createFeatureSelector<ITodoState>(
