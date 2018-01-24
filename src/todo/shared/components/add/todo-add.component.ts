@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -10,16 +10,22 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
       Add Todo
     </mat-card-title>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" #f="ngForm">
       <mat-form-field class="todo-field">
         <input matInput
         placeholder="Description"
-        formControlName="description" />
+        formControlName="description"
+        autocomplete="off">
         <mat-error *ngIf="descriptionRequired">Description is required</mat-error>
       </mat-form-field>
 
       <mat-form-field class="todo-field">
-        <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="Due date">
+        <input matInput
+        [matDatepicker]="picker"
+        [min]="minDate"
+        placeholder="Due date"
+        formControlName="dueDate"
+        autocomplete="off">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -33,7 +39,8 @@ export class TodoAddComponent {
   @Output()
   submitted = new EventEmitter<FormGroup>();
 
-  minDate = Date.now();
+  @ViewChild('f') addForm;
+  minDate = new Date(Date.now());
 
   form = this.fb.group({
     description: ['', Validators.required],
@@ -47,13 +54,9 @@ export class TodoAddComponent {
   onSubmit() {
     if (this.form.valid) {
       this.submitted.emit(this.form);
+      this.addForm.resetForm();
     }
   }
-
-  // get dueDateInvalid() {
-  //   const control = this.form.get('dueDate');
-  //   return control.hasError('required') && control.touched;
-  // }
 
   get descriptionRequired() {
     const control = this.form.get('description');

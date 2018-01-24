@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 import * as fromComponents from './components';
-import * as fromGuards from './guards';
 import * as fromServices from './services';
 
 @NgModule({
@@ -29,7 +28,6 @@ export class AuthSharedModule {
     return {
       ngModule: AuthSharedModule,
       providers: [
-        ...fromGuards.AuthGuards,
         ...fromServices.AuthSharedServices
       ]
     };

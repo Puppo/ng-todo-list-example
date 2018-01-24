@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -19,22 +19,11 @@ export class TodoService {
       headers: this.generateHeader(token),
       params: {
         email,
-        _sort: 'dueDate,id',
-        _order: 'desc,asc',
+        _sort: 'completed,dueDate,id',
+        _order: 'asc,asc,asc',
       }
     };
     return this.http.get<ITodo[]>(`${this.url}${this.TODO_URL}`, options);
-  }
-
-  getById(token: string, todoId: number): Observable<ITodo> {
-    const id = todoId.toString();
-    const options = {
-      headers: this.generateHeader(token),
-      params: {
-        id
-      }
-    };
-    return this.http.get<ITodo>(`${this.url}${this.TODO_URL}`, options);
   }
 
   add(token: string, todo: ITodo): Observable<ITodo> {
@@ -45,21 +34,18 @@ export class TodoService {
     return this.http.post<ITodo>(`${this.url}${this.TODO_URL}`, body, options);
   }
 
-  update(token: string, todo: ITodo): Observable<ITodo> {
-    const body = todo;
-    const id = todo.id.toString();
+  delete(token: string, todoId: number): Observable<ITodo> {
+    const id = todoId.toString();
     const options = {
       headers: this.generateHeader(token),
-      params: {
-        id
-      }
     };
-    return this.http.put<ITodo>(`${this.url}${this.TODO_URL}`, body, options);
+    return this.http.delete<ITodo>(`${this.url}${this.TODO_URL}/${id}`, options);
   }
 
-  protected generateHeader(token: string): {[header: string]: string | string[]} {
-    return {
-      'x-auth': token
-    };
+  protected generateHeader(token: string): HttpHeaders {
+    const headers = new HttpHeaders({
+      'x-auth': token.toString()
+    });
+    return headers;
   }
 }

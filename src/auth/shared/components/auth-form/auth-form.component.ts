@@ -13,7 +13,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
       <mat-form-field class="auth-field">
         <input matInput
         placeholder="Email"
-        formControlName="email" />
+        formControlName="email"
+        autocomplete="off">
         <mat-error *ngIf="emailRequired">Email is required</mat-error>
         <mat-error *ngIf="emailFormat">Invalid email format</mat-error>
       </mat-form-field>
@@ -22,7 +23,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
         <input type="password"
         matInput
         placeholder="Password"
-        formControlName="password" />
+        formControlName="password"
+        autocomplete="off">
         <mat-error *ngIf="passwordInvalid">Password is required</mat-error>
       </mat-form-field>
 

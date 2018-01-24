@@ -9,7 +9,8 @@ import { withLatestFrom, switchMap, map, catchError } from 'rxjs/operators';
 import { TodoService, ITodo } from '../../shared';
 
 import * as fromAuth from '../../../auth/store';
-import * as fromActions from '../actions';
+import * as fromActions from '../actions/todo-add.actions';
+import * as fromTodoListActions from '../actions/todo-list.actions';
 
 @Injectable()
 export class TodoAddEffect {
@@ -43,4 +44,11 @@ export class TodoAddEffect {
         );
       })
     );
+
+  @Effect()
+  addSuccess$ = this.actions$
+  .ofType(fromActions.TODO_ADD_SUCCESS_ACTION)
+  .pipe(
+    map(action => new fromTodoListActions.TodoListAction())
+  );
 }

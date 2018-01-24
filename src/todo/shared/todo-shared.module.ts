@@ -8,7 +8,11 @@ import {
   MatFormFieldModule,
   MatButtonModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatExpansionModule,
+  MatListModule,
+  MatIconModule,
+  MatTooltipModule
 } from '@angular/material';
 
 import * as fromComponents from './components';
@@ -24,7 +28,11 @@ import * as fromServices from './services';
     MatFormFieldModule,
     MatButtonModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatExpansionModule,
+    MatListModule,
+    MatIconModule,
+    MatTooltipModule
   ],
   declarations: [...fromComponents.TodoComponents],
   exports: [...fromComponents.TodoComponents]

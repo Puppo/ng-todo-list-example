@@ -5,8 +5,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { reducers, effects } from './store';
 import { AuthSharedModule } from './shared';
+import { reducers, effects } from './store';
+import * as fromGuards from './guards';
 
 export const ROUTES: Routes = [
   {
@@ -26,6 +27,9 @@ export const ROUTES: Routes = [
     AuthSharedModule.forRoot(),
     StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature(effects)
+  ],
+  providers: [
+    ...fromGuards.AuthGuards
   ]
 })
 export class AuthModule {}

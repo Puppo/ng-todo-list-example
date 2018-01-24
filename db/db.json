@@ -8,5 +8,33 @@
       "id": 1
     }
   ],
-  "todos": []
+  "todos": [
+    {
+      "description": "Smart testing",
+      "dueDate": 1516834800000,
+      "completed": true,
+      "email": "luca.delpuppo@aton.eu",
+      "createdAt": 1516751261948,
+      "updateAt": 1516751261948,
+      "id": 2
+    },
+    {
+      "description": "Todo list dev",
+      "dueDate": 1516921200000,
+      "completed": false,
+      "email": "luca.delpuppo@aton.eu",
+      "createdAt": 1516751320478,
+      "updateAt": 1516751320478,
+      "id": 3
+    },
+    {
+      "description": "Smart meeting",
+      "dueDate": 1517266800000,
+      "completed": false,
+      "email": "luca.delpuppo@aton.eu",
+      "createdAt": 1516753492296,
+      "updateAt": 1516753492297,
+      "id": 4
+    }
+  ]
 }
