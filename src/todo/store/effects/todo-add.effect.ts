@@ -14,6 +14,9 @@ import * as fromTodoListActions from '../actions/todo-list.actions';
 
 @Injectable()
 export class TodoAddEffect {
+  protected token$ = this.store.select(fromAuth.getLoginTokenSelector);
+  protected email$ = this.store.select(fromAuth.getLoginEmailSelector);
+
   constructor(
     protected actions$: Actions,
     protected store: Store<fromAuth.IAuthState>,
@@ -24,10 +27,7 @@ export class TodoAddEffect {
   add$ = this.actions$
     .ofType<fromActions.TodoAddAction>(fromActions.TODO_ADD_ACTION)
     .pipe(
-      withLatestFrom(
-        this.store.select(fromAuth.getLoginTokenSelector),
-        this.store.select(fromAuth.getLoginEmailSelector)
-      ),
+      withLatestFrom(this.token$, this.email$),
       switchMap(([action, token, email]) => {
         const { description, dueDate } = action;
         const completed = false;
@@ -37,18 +37,17 @@ export class TodoAddEffect {
           completed,
           email
         };
-        return this.todoSv.add(token, todo)
-        .pipe(
-          map(res => new fromActions.TodoAddSuccessAction()),
-          catchError(error => of(new fromActions.TodoAddFailAction(error)))
-        );
+        return this.todoSv
+          .add(token, todo)
+          .pipe(
+            map(res => new fromActions.TodoAddSuccessAction()),
+            catchError(error => of(new fromActions.TodoAddFailAction(error)))
+          );
       })
     );
 
   @Effect()
   addSuccess$ = this.actions$
-  .ofType(fromActions.TODO_ADD_SUCCESS_ACTION)
-  .pipe(
-    map(action => new fromTodoListActions.TodoListAction())
-  );
+    .ofType(fromActions.TODO_ADD_SUCCESS_ACTION)
+    .pipe(map(action => new fromTodoListActions.TodoListAction()));
 }

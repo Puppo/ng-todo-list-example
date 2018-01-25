@@ -75,13 +75,12 @@ function handleRegisterFail(
   };
 }
 
-
 export function getRegisterLoading(state: IRegisterState): boolean {
   return state.loading;
 }
 export function getRegisterSuccess(state: IRegisterState): boolean {
   return state.success;
 }
-export function getRegisterError(state: IRegisterState): boolean {
+export function getRegisterError(state: IRegisterState): any {
   return state.error;
 }

@@ -1,7 +1,10 @@
-import { AuthEffect } from './auth.effect';
+import { LoginEffect } from './login.effect';
+import { RegisterEffect } from './register.effect';
 
-export * from './auth.effect';
+export * from './login.effect';
+export * from './register.effect';
 
 export const effects: any[] = [
-  AuthEffect
+  LoginEffect,
+  RegisterEffect
 ];

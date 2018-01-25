@@ -13,7 +13,7 @@ export const INIT_LOGIN_STATE: ILoginState = {
   email: null,
   token: null,
   loading: false,
-  error: null,
+  error: null
 };
 
 export function reducer(
