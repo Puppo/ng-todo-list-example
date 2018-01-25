@@ -84,3 +84,10 @@ export function getRegisterSuccess(state: IRegisterState): boolean {
 export function getRegisterError(state: IRegisterState): any {
   return state.error;
 }
+export function getRegisterHasError(state: IRegisterState): any {
+  return !!state.error;
+}
+
+export function getRegisterErrorMessage(state: IRegisterState): any {
+  return !!state.error ? state.error.message : null;
+}

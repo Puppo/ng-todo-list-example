@@ -18,6 +18,7 @@ import { AuthService } from './auth.service';
 describe('AuthService', () => {
   let service: AuthService;
 
+  const tokenId = 12343;
   const email = 'test@test.it';
   const password = 'fsdf$5res';
   const authUrl = '/auths';
@@ -67,10 +68,11 @@ describe('AuthService', () => {
 
   describe('login', () => {
     it(
-      'should call http GET method with email and password params',
+      'should call http GET method with email and password params and return success',
       async(
         inject([HttpTestingController], (httpMock: HttpTestingController) => {
-          service.login(email, password).subscribe();
+          let id;
+          service.login(email, password).subscribe(res => id = res);
 
           const req = httpMock.expectOne(r => r.url.indexOf(`${authUrl}`) !== -1);
           const params = req.request.params;
@@ -79,6 +81,33 @@ describe('AuthService', () => {
 
           expect(params.get('email')).toEqual(email);
           expect(params.get('password')).toEqual(password);
+
+          req.flush([{id: tokenId}]);
+
+          expect(id).toEqual(tokenId);
+        })
+      )
+    );
+
+    it(
+      'should call http GET but return Invalid login',
+      async(
+        inject([HttpTestingController], (httpMock: HttpTestingController) => {
+          let error;
+          service.login(email, password).subscribe(() => {}, err => { error = err; });
+
+          const req = httpMock.expectOne(r => r.url.indexOf(`${authUrl}`) !== -1);
+          const params = req.request.params;
+
+          expect(req.request.method).toEqual('GET');
+
+          expect(params.get('email')).toEqual(email);
+          expect(params.get('password')).toEqual(password);
+
+          req.flush({});
+
+          expect(error).toEqual(new Error('Invalid login'));
+
         })
       )
     );

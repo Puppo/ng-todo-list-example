@@ -93,10 +93,7 @@ function handleLogout(
   const error = null;
   return {
     ...state,
-    email,
-    token,
-    loading,
-    error
+    ...INIT_LOGIN_STATE,
   };
 }
 
@@ -111,4 +108,10 @@ export function getLoginLoading(state: ILoginState): boolean {
 }
 export function getLoginError(state: ILoginState): boolean {
   return state.error;
+}
+export function getLoginHasError(state: ILoginState): boolean {
+  return !!state.error;
+}
+export function getLoginErrorMessage(state: ILoginState): boolean {
+  return !!state.error ? state.error.message : null;
 }

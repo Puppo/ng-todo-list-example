@@ -11,6 +11,8 @@ import { of } from 'rxjs/observable/of';
 import { empty } from 'rxjs/observable/empty';
 import { _throw } from 'rxjs/observable/throw';
 
+import { getStoreStub } from '@test/todo-mock-store';
+
 import { ApiUrl } from '../../../constants';
 import { ITodo } from '../../shared/models';
 import { TodoService } from '../../shared/services/todo/todo.service';
@@ -18,12 +20,7 @@ import * as fromRoute from '../../../app/store';
 import * as fromAuth from '../../../auth/store';
 import * as fromTodoListActions from '../actions/todo-list.actions';
 import * as fromActions from '../actions/todo-add.actions';
-import { MockStore } from './todo-mock-store';
 import * as fromEffects from './todo-add.effect';
-
-function getStoreStub(): any {
-  return new MockStore(undefined);
-}
 
 describe('TodoAddEffect', () => {
   let actions$: Observable<any>;

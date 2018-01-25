@@ -9,6 +9,9 @@ import { hot, cold } from 'jasmine-marbles';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { empty } from 'rxjs/observable/empty';
+import { _throw } from 'rxjs/observable/throw';
+
+import { getStoreStub } from '@test/todo-mock-store';
 
 import { ApiUrl } from '../../../constants';
 import { ITodo } from '../../shared/models';
@@ -17,12 +20,7 @@ import * as fromRoute from '../../../app/store';
 import * as fromAuth from '../../../auth/store';
 import * as fromTodoListActions from '../actions/todo-list.actions';
 import * as fromActions from '../actions/todo-delete.actions';
-import { MockStore } from './todo-mock-store';
 import * as fromEffects from './todo-delete.effect';
-
-function getStoreStub(): any {
-  return new MockStore(undefined);
-}
 
 describe('TodoDeleteEffect', () => {
   let actions$: Observable<any>;
@@ -30,6 +28,7 @@ describe('TodoDeleteEffect', () => {
   let effects: fromEffects.TodoDeleteEffect;
 
   const id = 1;
+  const fatalError = { message: 'Fatal exception' };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -47,13 +46,26 @@ describe('TodoDeleteEffect', () => {
     service = TestBed.get(TodoService);
     effects = TestBed.get(fromEffects.TodoDeleteEffect);
 
-    spyOn(service, 'delete').and.returnValue(of(empty()));
   });
 
   describe('delete$', () => {
     it('should return a TodoDeleteSuccessAction from TodoDeleteAction', () => {
+      spyOn(service, 'delete').and.returnValue(of(empty()));
+
       const action = new fromActions.TodoDeleteAction(id);
       const completion = new fromActions.TodoDeleteSuccessAction();
+
+      actions$ = hot('-a', { a: action });
+      const expected = cold('-b', { b: completion });
+
+      expect(effects.delete$).toBeObservable(expected);
+    });
+
+    it('should return a TodoDeleteFailAction from TodoDeleteAction', () => {
+      spyOn(service, 'delete').and.returnValue(_throw(fatalError));
+
+      const action = new fromActions.TodoDeleteAction(id);
+      const completion = new fromActions.TodoDeleteFailAction(fatalError);
 
       actions$ = hot('-a', { a: action });
       const expected = cold('-b', { b: completion });

@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 
-import * as fromStore from '../../store';
+import * as fromStore from '../../../store';
 
 @Component({
   selector: 'auth-register',
@@ -30,9 +30,8 @@ import * as fromStore from '../../store';
 })
 export class RegisterComponent {
   public hasLoading$ = this.store.select(fromStore.getRegisterLoadingSelector);
-  public error$ = this.store.select(fromStore.getRegisterErrorSelector);
-  public errorMessage$ = this.error$.pipe(map(x => !!x ? x.message : null));
-  public hasError$ = this.error$.pipe(map(x => !!x));
+  public errorMessage$ = this.store.select(fromStore.getRegisterErrorMessageSelector);
+  public hasError$ = this.store.select(fromStore.getRegisterHasErrorSelector);
 
   constructor(protected store: Store<fromStore.IAuthState>) {}
 

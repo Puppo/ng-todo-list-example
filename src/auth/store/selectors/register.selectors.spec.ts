@@ -99,4 +99,36 @@ describe('Register Selectors', () => {
       expect({ ...result }).toEqual({ ...error });
     });
   });
+
+  describe('getRegisterHasError', () => {
+    it('should return the register has error state', () => {
+      let result;
+
+      store
+        .select(fromSelectors.getRegisterHasErrorSelector)
+        .subscribe(value => (result = value));
+
+      expect(result).toBeFalsy();
+
+      store.dispatch(new fromActions.RegisterFailAction(error));
+
+      expect(result).toBeTruthy();
+    });
+  });
+
+  describe('getRegisterErrorMessage', () => {
+    it('should return the register error message state', () => {
+      let result;
+
+      store
+        .select(fromSelectors.getRegisterErrorMessageSelector)
+        .subscribe(value => (result = value));
+
+      expect(result).toBeFalsy();
+
+      store.dispatch(new fromActions.RegisterFailAction(error));
+
+      expect(result).toBeTruthy();
+    });
+  });
 });

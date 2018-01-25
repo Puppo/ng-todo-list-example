@@ -55,4 +55,17 @@ describe('LoginReducer', () => {
       expect({ ...state.error }).toEqual({ ...error });
     });
   });
+
+  describe('LOG_OUT_ACTION action', () => {
+    it('should reset user', () => {
+      const { INIT_LOGIN_STATE } = fromLogin;
+      const action = new fromActions.LogoutAction();
+      const state = fromLogin.reducer(INIT_LOGIN_STATE, action);
+
+      expect(state.loading).toEqual(false);
+      expect(state.email).toBeNull();
+      expect(state.token).toBeNull();
+      expect(state.error).toBeNull();
+    });
+  });
 });

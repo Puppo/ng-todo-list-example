@@ -10,20 +10,30 @@ export const getLoginSelector = createSelector(
 
 export const getLoginEmailSelector = createSelector(
   getLoginSelector,
-  (state: fromLogin.ILoginState) => state.email
+  fromLogin.getLoginEmail
 );
 
 export const getLoginTokenSelector = createSelector(
   getLoginSelector,
-  (state: fromLogin.ILoginState) => state.token
+  fromLogin.getLoginToken
 );
 
 export const getLoginLoadingSelector = createSelector(
   getLoginSelector,
-  (state: fromLogin.ILoginState) => state.loading
+  fromLogin.getLoginLoading
 );
 
 export const getLoginErrorSelector = createSelector(
   getLoginSelector,
-  (state: fromLogin.ILoginState) => state.error
+  fromLogin.getLoginError
+);
+
+export const getLoginHasErrorSelector = createSelector(
+  getLoginSelector,
+  fromLogin.getLoginHasError
+);
+
+export const getLoginErrorMessageSelector = createSelector(
+  getLoginSelector,
+  fromLogin.getLoginErrorMessage
 );

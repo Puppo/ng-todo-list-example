@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 
-import * as fromStore from '../../store';
+import * as fromStore from '../../../store';
 
 @Component({
   selector: 'auth-login',
@@ -33,9 +33,8 @@ import * as fromStore from '../../store';
 })
 export class LoginComponent {
   public hasLoading$ = this.store.select(fromStore.getLoginLoadingSelector);
-  public error$ = this.store.select(fromStore.getLoginErrorSelector);
-  public errorMessage$ = this.error$.pipe(map(x => !!x ? x.message : null));
-  public hasError$ = this.error$.pipe(map(x => !!x));
+  public errorMessage$ = this.store.select(fromStore.getLoginErrorMessageSelector);
+  public hasError$ = this.store.select(fromStore.getLoginHasErrorSelector);
   constructor(protected store: Store<fromStore.IAuthState>) {}
 
   submit(form: FormGroup) {

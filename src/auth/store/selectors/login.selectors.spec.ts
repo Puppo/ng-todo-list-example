@@ -118,4 +118,36 @@ describe('Login Selectors', () => {
       expect({ ...result }).toEqual({ ...error });
     });
   });
+
+  describe('getLoginHasError', () => {
+    it('should return the login has error state', () => {
+      let result;
+
+      store
+        .select(fromSelectors.getLoginHasErrorSelector)
+        .subscribe(value => (result = value));
+
+      expect(result).toBeFalsy();
+
+      store.dispatch(new fromActions.LoginFailAction(error));
+
+      expect(result).toBeTruthy();
+    });
+  });
+
+  describe('getLoginErrorMessage', () => {
+    it('should return the login error message state', () => {
+      let result;
+
+      store
+        .select(fromSelectors.getLoginErrorMessageSelector)
+        .subscribe(value => (result = value));
+
+      expect(result).toBeFalsy();
+
+      store.dispatch(new fromActions.LoginFailAction(error));
+
+      expect(result).toBeTruthy();
+    });
+  });
 });

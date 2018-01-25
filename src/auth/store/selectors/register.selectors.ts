@@ -22,3 +22,13 @@ export const getRegisterErrorSelector = createSelector(
   getRegisterSelector,
   fromRegister.getRegisterError
 );
+
+export const getRegisterHasErrorSelector = createSelector(
+  getRegisterSelector,
+  fromRegister.getRegisterHasError
+);
+
+export const getRegisterErrorMessageSelector = createSelector(
+  getRegisterSelector,
+  fromRegister.getRegisterErrorMessage
+);

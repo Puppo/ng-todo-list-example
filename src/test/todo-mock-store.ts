@@ -21,3 +21,7 @@ export class MockStore<T> extends BehaviorSubject<T> {
     );
   }
 }
+
+export function getStoreStub(): any {
+  return new MockStore(undefined);
+}

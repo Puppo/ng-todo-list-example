@@ -8,8 +8,8 @@
     "start:ui": "ng serve",
     "start": "npm run start:api && npm run start:ui",
     "build": "ng build --prod",
-    "test": "ng test --code-coverage --browser PhantomJS",
-    "test:chrome": "ng test --code-coverage --browser Chrome",
+    "test": "ng test --code-coverage --browser PhantomJS --reporters spec",
+    "test:chrome": "ng test --code-coverage --browser Chrome --reporters spec",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -58,6 +58,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.4",
+    "karma-spec-reporter": "0.0.32",
     "phantomjs-prebuilt": "^2.1.16",
     "protractor": "~5.2.2",
     "ts-node": "~4.1.0",
