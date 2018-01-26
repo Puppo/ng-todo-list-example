@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -48,6 +51,9 @@ const ROUTES: Routes = [{ path: '', pathMatch: 'full', redirectTo: 'auth' }];
 
 @NgModule({
   imports: [
+    ServiceWorkerModule.register('/ngsw-worker.js', {
+      enabled: environment.production
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     MatToolbarModule,

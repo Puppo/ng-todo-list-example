@@ -1,14 +1,14 @@
 {
   "auths": [
     {
-      "email": "luca.delpuppo@aton.eu",
+      "email": "prova@prova.eu",
       "password": "123456",
       "createdAt": 1516714103952,
       "updateAt": 1516714103954,
       "id": 1
     },
     {
-      "email": "giorgio.boa@aton.eu",
+      "email": "prova2@prova.eu",
       "password": "123456",
       "createdAt": 1516803444874,
       "updateAt": 1516803444875,
@@ -20,7 +20,7 @@
       "description": "Smart testing",
       "dueDate": 1516834800000,
       "completed": true,
-      "email": "luca.delpuppo@aton.eu",
+      "email": "prova@prova.eu",
       "createdAt": 1516751261948,
       "updateAt": 1516751261948,
       "id": 2
@@ -29,7 +29,7 @@
       "description": "Todo list dev",
       "dueDate": 1516921200000,
       "completed": false,
-      "email": "luca.delpuppo@aton.eu",
+      "email": "prova@prova.eu",
       "createdAt": 1516751320478,
       "updateAt": 1516751320478,
       "id": 3
@@ -38,7 +38,7 @@
       "description": "Smart presentations",
       "dueDate": 1516748400000,
       "completed": false,
-      "email": "luca.delpuppo@aton.eu",
+      "email": "prova@prova.eu",
       "createdAt": 1516757469700,
       "updateAt": 1516757469700,
       "id": 5
@@ -47,7 +47,7 @@
       "description": "Ngrx Effect test wrong",
       "dueDate": 1516748400000,
       "completed": false,
-      "email": "luca.delpuppo@aton.eu",
+      "email": "prova@prova.eu",
       "createdAt": 1516803402715,
       "updateAt": 1516803402716,
       "id": 6
@@ -56,7 +56,7 @@
       "description": "Meeting smart",
       "dueDate": 1516921200000,
       "completed": false,
-      "email": "luca.delpuppo@aton.eu",
+      "email": "prova@prova.eu",
       "createdAt": 1516807687885,
       "updateAt": 1516807687886,
       "id": 7
@@ -65,7 +65,7 @@
       "description": "prova",
       "dueDate": 1516834800000,
       "completed": false,
-      "email": "luca.delpuppo@aton.eu",
+      "email": "prova@prova.eu",
       "createdAt": 1516808118065,
       "updateAt": 1516808118065,
       "id": 8
