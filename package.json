@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "precommit": "npm run lint && npm run build",
     "ng": "ng",
     "start:api": "node ./db/server.js",
     "start:ui": "ng serve",
@@ -60,6 +61,7 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-spec-reporter": "0.0.32",
     "phantomjs-prebuilt": "^2.1.16",
+    "prettier": "^1.10.2",
     "protractor": "~5.2.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
