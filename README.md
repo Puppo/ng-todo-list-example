@@ -14,3 +14,8 @@ npm run start:ui
 ```
 npm run test
 ```
+# E2E Application
+
+```
+npm run e2e
+```

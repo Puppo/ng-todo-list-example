@@ -14,7 +14,10 @@
   }
 
   .auth-field {
-    width: 100%;
+    &__email,
+    &__password {
+      width: 100%;
+    }
   }
 
   &__action {

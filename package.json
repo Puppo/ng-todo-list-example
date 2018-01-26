@@ -13,7 +13,7 @@
     "test:watch": "ng test --code-coverage --browser PhantomJS --reporters spec",
     "test:chrome": "ng test --code-coverage --browser Chrome",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e --env=e2e"
   },
   "private": true,
   "dependencies": {

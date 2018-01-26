@@ -13,7 +13,7 @@ import * as fromAuthStore from '../../../auth/store';
       <mat-toolbar-row>
         <a class="app-title" routerLink="/">Todo list</a>
         <span class="spacer"></span>
-        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="hasUser$ | async">
+        <button mat-icon-button class="app-user-actions" [matMenuTriggerFor]="menu" *ngIf="hasUser$ | async">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
