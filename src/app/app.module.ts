@@ -43,9 +43,11 @@ export function localStorageSyncReducer(
   })(reducer);
 }
 
-export const metaReducers: MetaReducer<any>[] = !environment.production
-  ? [storeFreeze, localStorageSyncReducer]
-  : [localStorageSyncReducer];
+export const metaReducers: MetaReducer<any>[] = environment.e2e
+  ? []
+  : !environment.production
+    ? [storeFreeze, localStorageSyncReducer]
+    : [localStorageSyncReducer];
 
 const ROUTES: Routes = [{ path: '', pathMatch: 'full', redirectTo: 'auth' }];
 

@@ -22,3 +22,8 @@ npm run start:pwa
 ```
 npm run test
 ```
+# E2E Application
+
+```
+npm run e2e
+```

@@ -10,22 +10,22 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
     </mat-card-title>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <mat-form-field class="auth-field">
+      <mat-form-field class="auth-field__email">
         <input matInput
         placeholder="Email"
         formControlName="email"
         autocomplete="off">
-        <mat-error *ngIf="emailRequired">Email is required</mat-error>
-        <mat-error *ngIf="emailFormat">Invalid email format</mat-error>
+        <mat-error class="auth-field__error auth-field__error_required" *ngIf="emailRequired">Email is required</mat-error>
+        <mat-error class="auth-field__error auth-field__error_email" *ngIf="emailFormat">Invalid email format</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="auth-field">
+      <mat-form-field class="auth-field__password">
         <input type="password"
         matInput
         placeholder="Password"
         formControlName="password"
         autocomplete="off">
-        <mat-error *ngIf="passwordInvalid">Password is required</mat-error>
+        <mat-error class="auth-field__error auth-field__error_required" *ngIf="passwordInvalid">Password is required</mat-error>
       </mat-form-field>
 
       <ng-content select=".error"></ng-content>
