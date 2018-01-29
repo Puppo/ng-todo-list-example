@@ -6,8 +6,9 @@
     "precommit": "npm run lint && npm run test && npm run build",
     "ng": "ng",
     "start:api": "node ./db/server.js",
-    "prestart:api:test": "cp ./db/db-init/db-test.json ./db/db-test.json",
+    "prestart:api:test": "npm run dbtest:rest",
     "start:api:test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && node ./db/server.js ",
+    "poststart:api:test": "npm run dbtest:rest",
     "start:ui": "ng serve",
     "start": "npm run start:api && npm run start:ui",
     "prestart:pwa": "npm run build",
@@ -17,7 +18,8 @@
     "test:watch": "ng test --code-coverage --browser PhantomJS --reporters spec",
     "test:chrome": "ng test --code-coverage --browser Chrome",
     "lint": "ng lint",
-    "e2e": "ng e2e --env=e2e"
+    "e2e": "ng e2e --env=e2e",
+    "dbtest:rest": "cp ./db/db-init/db-test.json ./db/db-test.json"
   },
   "private": true,
   "dependencies": {

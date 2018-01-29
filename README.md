@@ -25,5 +25,7 @@ npm run test
 # E2E Application
 
 ```
+npm run start:api:test
+(in other terminal)
 npm run e2e
 ```
