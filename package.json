@@ -6,6 +6,8 @@
     "precommit": "npm run lint && npm run test && npm run build",
     "ng": "ng",
     "start:api": "node ./db/server.js",
+    "prestart:api:test": "cp ./db/db-init/db-test.json ./db/db-test.json",
+    "start:api:test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && node ./db/server.js ",
     "start:ui": "ng serve",
     "start": "npm run start:api && npm run start:ui",
     "prestart:pwa": "npm run build",

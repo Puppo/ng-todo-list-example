@@ -19,7 +19,7 @@ describe('ng-todo-list-example App Login', () => {
 
   it('should complete auth-login component', () => {
     page.navigateTo();
-    const email = 'prova@prova.eu';
+    const email = 'test@test.eu';
     const password = '123456';
     page.getEmailInput().sendKeys(email);
     page.browser().driver.sleep(500);
@@ -67,7 +67,7 @@ describe('ng-todo-list-example App Login', () => {
 
   it('should show error message if login fail', () => {
     page.navigateTo();
-    const email = 'prova@prova.it';
+    const email = 'test@test.it';
     const password = '123456';
     page.getEmailInput().sendKeys(email);
     page.getPasswordInput().sendKeys(password);

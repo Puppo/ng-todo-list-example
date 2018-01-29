@@ -1,0 +1,10 @@
+{
+  "test": {
+    "db": "./db/db-test.json",
+    "PORT": 3000
+  },
+  "development": {
+    "db": "./db/db.json",
+    "PORT": 3000
+  }
+}
