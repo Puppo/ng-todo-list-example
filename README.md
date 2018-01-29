@@ -9,6 +9,14 @@ npm run start:api
 (in other terminal)
 npm run start:ui
 ```
+
+# Run PWA Application
+
+```
+npm run start:api
+(in other terminal)
+npm run start:pwa
+```
 # Test Application
 
 ```

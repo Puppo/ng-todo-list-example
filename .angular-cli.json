@@ -17,6 +17,7 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
+      "serviceWorker": true,
       "styles": [
         "../node_modules/@angular/material/prebuilt-themes/purple-green.css",
         "styles.scss"
@@ -60,8 +61,8 @@
       "spec": false
     },
     "component": {
-      "inlineTemplate": true,
-      "spec": false
+      "spec": false,
+      "inlineTemplate": true
     },
     "directive": {
       "spec": false
