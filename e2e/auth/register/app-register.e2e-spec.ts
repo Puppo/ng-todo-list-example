@@ -5,7 +5,7 @@ describe('ng-todo-list-example App Register', () => {
   const mail = `test_${Date.now()}@test.it`;
   const pwd = '123456';
 
-  describe('ng-todo-list-example App Register (display)', () => {
+  describe('check if elements exist', () => {
 
     beforeEach(() => {
       page = new AppPage();
@@ -59,7 +59,7 @@ describe('ng-todo-list-example App Register', () => {
     });
   });
 
-  describe('ng-todo-list-example App Register (Inputs)', () => {
+  describe('check inputs and errors', () => {
 
     beforeEach(() => {
       page = new AppPage();
@@ -104,7 +104,8 @@ describe('ng-todo-list-example App Register', () => {
       page.browser().driver.sleep(500);
       page.getSubmitButton().click();
       page.browser().waitForAngular();
-      expect(page.browser().getCurrentUrl()).toEqual(`${page.browser().baseUrl}/auth/login`);
+      expect(page.browser().getCurrentUrl()).toEqual(`${page.browser().baseUrl}/auth/register`);
+      expect(page.getEmailAlreadyExistsError().isPresent()).toBeTruthy();
     });
 
     it('should register new user', () => {
@@ -118,7 +119,7 @@ describe('ng-todo-list-example App Register', () => {
     });
   });
 
-  describe('ng-todo-list-example App Register (Login)', () => {
+  describe('check created user', () => {
     beforeEach(() => {
       page = new AppPage();
     });
