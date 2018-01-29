@@ -12,6 +12,9 @@ import * as fromStore from '../../../store';
   <auth-form (submitted)="submit($event)">
     <h1>Register</h1>
     <button mat-raised-button color="primary">Create Account</button>
+    <div class="error" *ngIf="hasError$ | async">
+      {{ errorMessage$ | async }}
+    </div>
     <a routerLink="/auth/login">Already have an account?</a>
   </auth-form>
     `,
