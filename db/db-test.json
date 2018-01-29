@@ -6,6 +6,13 @@
       "createdAt": 1516714103952,
       "updateAt": 1516714103954,
       "id": 1
+    },
+    {
+      "email": "test_1517236219121@test.it",
+      "password": "123456",
+      "createdAt": 1517236244518,
+      "updateAt": 1517236244520,
+      "id": 2
     }
   ],
   "todos": [
