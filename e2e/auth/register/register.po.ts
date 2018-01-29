@@ -1,6 +1,7 @@
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
+
     browser() {
         return browser;
     }
@@ -62,6 +63,11 @@ export class AppPage {
             )
         );
     }
+
+    getEmailAlreadyExistsError(): any {
+        return element(by.css('app-root > auth-register > auth-form > mat-card > form > div.error.ng-star-inserted'));
+    }
+
     getPasswordInput() {
         return element(
             by.css('app-root auth-register auth-form [formcontrolname="password"]')

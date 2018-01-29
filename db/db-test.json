@@ -8,32 +8,11 @@
       "id": 1
     },
     {
-      "email": "test@test.eu",
+      "email": "test_1517236219121@test.it",
       "password": "123456",
-      "createdAt": 1517233202533,
-      "updateAt": 1517233202534,
+      "createdAt": 1517236244518,
+      "updateAt": 1517236244520,
       "id": 2
-    },
-    {
-      "email": "test_1517233177371@test.it",
-      "password": "123456",
-      "createdAt": 1517233205372,
-      "updateAt": 1517233205373,
-      "id": 3
-    },
-    {
-      "email": "test@test.eu",
-      "password": "123456",
-      "createdAt": 1517233276213,
-      "updateAt": 1517233276213,
-      "id": 4
-    },
-    {
-      "email": "test_003@test.it",
-      "password": "a",
-      "createdAt": 1517233744138,
-      "updateAt": 1517233744138,
-      "id": 5
     }
   ],
   "todos": [
