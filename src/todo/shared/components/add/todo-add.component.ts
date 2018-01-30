@@ -1,5 +1,5 @@
-import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Component, Output, EventEmitter, ViewChild, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'todo-add',
@@ -30,12 +30,12 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-      <button mat-raised-button color="primary">Add</button>
+      <button class="add-item" mat-raised-button color="primary">Add</button>
     </form>
   </mat-card>
   `
 })
-export class TodoAddComponent {
+export class TodoAddComponent implements OnInit {
   @Output()
   submitted = new EventEmitter<FormGroup>();
 
@@ -47,11 +47,18 @@ export class TodoAddComponent {
     dueDate: [null]
   });
 
+  descriptionCtrl: AbstractControl;
+
   constructor(
     private fb: FormBuilder
-  ) {}
+  ) { }
+
+  ngOnInit(): void {
+    this.descriptionCtrl = this.form.get('description');
+  }
 
   onSubmit() {
+    this.descriptionCtrl.markAsTouched();
     if (this.form.valid) {
       this.submitted.emit(this.form);
       this.addForm.resetForm();
@@ -59,7 +66,7 @@ export class TodoAddComponent {
   }
 
   get descriptionRequired() {
-    const control = this.form.get('description');
+    const control = this.descriptionCtrl;
     return control.hasError('required') && control.touched;
   }
 }
