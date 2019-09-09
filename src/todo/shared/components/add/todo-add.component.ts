@@ -39,7 +39,7 @@ export class TodoAddComponent implements OnInit {
   @Output()
   submitted = new EventEmitter<FormGroup>();
 
-  @ViewChild('f') addForm;
+  @ViewChild('f', { static: true }) addForm;
   minDate = new Date(Date.now());
 
   form = this.fb.group({
