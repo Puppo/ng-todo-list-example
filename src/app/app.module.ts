@@ -25,7 +25,7 @@ import { reducers, effects, CustomSerializer } from './store';
 
 // not used in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { storeFreeze } from 'ngrx-store-freeze';
+
 import { localStorageSync } from 'ngrx-store-localstorage';
 
 import { AuthModule } from '../auth';
@@ -46,7 +46,7 @@ export function localStorageSyncReducer(
 export const metaReducers: MetaReducer<any>[] = environment.e2e
   ? []
   : !environment.production
-    ? [storeFreeze, localStorageSyncReducer]
+    ? [localStorageSyncReducer]
     : [localStorageSyncReducer];
 
 const ROUTES: Routes = [{ path: '', pathMatch: 'full', redirectTo: 'auth' }];
@@ -63,9 +63,9 @@ const ROUTES: Routes = [{ path: '', pathMatch: 'full', redirectTo: 'auth' }];
     MatMenuModule,
     MatButtonModule,
     RouterModule.forRoot(ROUTES),
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers, { metaReducers, runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true } }),
     EffectsModule.forRoot(effects),
-    StoreRouterConnectingModule,
+    StoreRouterConnectingModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     AuthModule,
     TodoModule

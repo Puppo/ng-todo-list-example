@@ -16,12 +16,12 @@ export const ROUTES: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'login' },
       {
         path: 'login',
-        loadChildren: './login/login.module#LoginModule',
+        loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
         canActivate: [fromGuards.NotAuthenticatedGuard]
       },
       {
         path: 'register',
-        loadChildren: './register/register.module#RegisterModule',
+        loadChildren: () => import('./register/register.module').then(m => m.RegisterModule),
         canActivate: [fromGuards.NotAuthenticatedGuard]
       }
     ]
