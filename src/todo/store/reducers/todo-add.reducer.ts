@@ -1,3 +1,5 @@
+import { ITodoAddFailActionProps } from './../actions/todo-add.actions.model';
+import { createReducer, on, Action } from '@ngrx/store';
 import * as fromActions from '../actions/todo-add.actions';
 
 export interface ITodoAddState {
@@ -10,25 +12,15 @@ export const INIT_TODO_ADD_STATE: ITodoAddState = {
   error: null
 };
 
-export function reducer(
-  state = INIT_TODO_ADD_STATE,
-  action: fromActions.TodoAddActions
-): ITodoAddState {
-  switch (action.type) {
-    case fromActions.TODO_ADD_ACTION:
-      return handleAdd(state, action as fromActions.TodoAddAction);
-    case fromActions.TODO_ADD_SUCCESS_ACTION:
-      return handleAddSuccess(state, action);
-    case fromActions.TODO_ADD_FAIL_ACTION:
-      return handleAddFail(state, action as fromActions.TodoAddFailAction);
-    default:
-      return state;
-  }
-}
+const featureReducer = createReducer(
+  INIT_TODO_ADD_STATE,
+  on(fromActions.todoAddAction, handleAdd),
+  on(fromActions.todoAddSuccessAction, handleAddSuccess),
+  on(fromActions.todoAddFailAction, handleAddFail)
+);
 
 function handleAdd(
-  state: ITodoAddState,
-  action: fromActions.TodoAddAction
+  state: ITodoAddState
 ): ITodoAddState {
   const loading = true;
   const error = null;
@@ -40,8 +32,7 @@ function handleAdd(
 }
 
 function handleAddSuccess(
-  state: ITodoAddState,
-  action: fromActions.TodoAddSuccessAction
+  state: ITodoAddState
 ): ITodoAddState {
   const loading = false;
   return {
@@ -52,10 +43,10 @@ function handleAddSuccess(
 
 function handleAddFail(
   state: ITodoAddState,
-  action: fromActions.TodoAddFailAction
+  payload: ITodoAddFailActionProps
 ): ITodoAddState {
   const loading = false;
-  const { error } = action;
+  const { error } = payload;
   return {
     ...state,
     loading,
@@ -69,4 +60,8 @@ export function getTodoAddLoading(state: ITodoAddState): boolean {
 
 export function getTodoAddError(state: ITodoAddState): boolean {
   return state.error;
+}
+
+export function reducer(state: ITodoAddState | undefined, action: Action) {
+  return featureReducer(state, action);
 }

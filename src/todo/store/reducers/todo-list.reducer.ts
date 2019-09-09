@@ -1,4 +1,6 @@
+import { createReducer, on, Action } from '@ngrx/store';
 import * as fromActions from '../actions/todo-list.actions';
+import * as fromProps from '../actions/todo-list.actions.model';
 
 import { ITodo } from '../../shared/models';
 
@@ -14,28 +16,15 @@ export const INIT_TODO_LIST_STATE: ITodoListState = {
   todos: null
 };
 
-export function reducer(
-  state = INIT_TODO_LIST_STATE,
-  action: fromActions.TodoListActions
-): ITodoListState {
-  switch (action.type) {
-    case fromActions.TODO_LIST_ACTION:
-      return handleList(state, action);
-    case fromActions.TODO_LIST_SUCCESS_ACTION:
-      return handleListSuccess(
-        state,
-        action as fromActions.TodoListSuccessAction
-      );
-    case fromActions.TODO_LIST_FAIL_ACTION:
-      return handleListFail(state, action as fromActions.TodoListFailAction);
-    default:
-      return state;
-  }
-}
+const featureReducer = createReducer(
+  INIT_TODO_LIST_STATE,
+  on(fromActions.todoListAction, handleList),
+  on(fromActions.todoListSuccessAction, handleListSuccess),
+  on(fromActions.todoListFailAction, handleListFail)
+);
 
 function handleList(
-  state: ITodoListState,
-  action: fromActions.TodoListAction
+  state: ITodoListState
 ): ITodoListState {
   const loading = true;
   const error = null;
@@ -49,10 +38,10 @@ function handleList(
 }
 function handleListSuccess(
   state: ITodoListState,
-  action: fromActions.TodoListSuccessAction
+  payload: fromProps.ITodoListSuccessActionProps
 ): ITodoListState {
   const loading = false;
-  const { todos } = action;
+  const { todos } = payload;
   return {
     ...state,
     loading,
@@ -61,10 +50,10 @@ function handleListSuccess(
 }
 function handleListFail(
   state: ITodoListState,
-  action: fromActions.TodoListFailAction
+  payload: fromProps.ITodoListFailActionProps
 ): ITodoListState {
   const loading = false;
-  const {error} = action;
+  const {error} = payload;
   return {
     ...state,
     loading,
@@ -80,4 +69,9 @@ export function getTodoListTodos(state: ITodoListState): ITodo[] {
 }
 export function getTodoListError(state: ITodoListState): any {
   return state.error;
+}
+
+
+export function reducer(state: ITodoListState | undefined, action: Action) {
+  return featureReducer(state, action);
 }

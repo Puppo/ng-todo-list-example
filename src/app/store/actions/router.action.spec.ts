@@ -1,16 +1,16 @@
-import * as fromRouter from "./router.actions";
+import * as fromRouter from './router.actions';
 
-describe("Router Actions", () => {
-  describe("GoAction", () => {
-    it("should create an action", () => {
-      const email = "test@testing.com";
-      const password = "password";
+describe('Router Actions', () => {
+  describe('GoAction', () => {
+    it('should create an action', () => {
+      const email = 'test@testing.com';
+      const password = 'password';
       const payload = {
-        path: ["/login"],
+        path: ['/login'],
         query: { query: 2 }
       };
 
-      const action = new fromRouter.Go(payload);
+      const action = fromRouter.go(payload);
 
       expect({ ...action }).toEqual({
         type: fromRouter.GO,
@@ -19,9 +19,9 @@ describe("Router Actions", () => {
     });
   });
 
-  describe("BackAction", () => {
-    it("should create an action", () => {
-      const action = new fromRouter.Back();
+  describe('BackAction', () => {
+    it('should create an action', () => {
+      const action = fromRouter.back();
 
       expect({ ...action }).toEqual({
         type: fromRouter.BACK
@@ -29,9 +29,9 @@ describe("Router Actions", () => {
     });
   });
 
-  describe("ForwardAction", () => {
-    it("should create an action", () => {
-      const action = new fromRouter.Forward();
+  describe('ForwardAction', () => {
+    it('should create an action', () => {
+      const action = fromRouter.forward();
 
       expect({ ...action }).toEqual({
         type: fromRouter.FORWARD

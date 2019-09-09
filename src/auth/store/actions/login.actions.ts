@@ -1,28 +1,14 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+import { ILoginActionProps, ILoginSuccessActionProps, ILoginFailActionProps } from './login.actions.model';
 
 export const LOGIN_ACTION = '[Auth] Login';
-export class LoginAction implements Action {
-  readonly type = LOGIN_ACTION;
-  constructor(public email: string, public password: string) {}
-}
+export const loginAction = createAction(LOGIN_ACTION, props<ILoginActionProps>());
+
 export const LOGIN_SUCCESS_ACTION = '[Auth] Login Success';
-export class LoginSuccessAction implements Action {
-  readonly type = LOGIN_SUCCESS_ACTION;
-  constructor(public token: string, public email: string) {}
-}
+export const loginSuccessAction = createAction(LOGIN_SUCCESS_ACTION, props<ILoginSuccessActionProps>());
+
 export const LOGIN_FAIL_ACTION = '[Auth] Login Fail';
-export class LoginFailAction implements Action {
-  readonly type = LOGIN_FAIL_ACTION;
-  constructor(public error: any) {}
-}
+export const loginFailAction = createAction(LOGIN_FAIL_ACTION, props<ILoginFailActionProps>());
 
 export const LOGOUT_ACTION = '[Auth] Logout';
-export class LogoutAction implements Action {
-  readonly type = LOGOUT_ACTION;
-}
-
-export type LoginActions =
-  | LoginAction
-  | LoginSuccessAction
-  | LoginFailAction
-  | LogoutAction;
+export const logoutAction = createAction(LOGOUT_ACTION);

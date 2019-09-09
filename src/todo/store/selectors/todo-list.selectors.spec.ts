@@ -62,7 +62,7 @@ describe('Todo List Selectors', () => {
         todos: null
       });
 
-      store.dispatch(new fromActions.TodoListSuccessAction(todos));
+      store.dispatch(fromActions.todoListSuccessAction({todos}));
 
       expect(result).toEqual({
         loading: false,
@@ -82,7 +82,7 @@ describe('Todo List Selectors', () => {
 
       expect(result).toEqual(false);
 
-      store.dispatch(new fromActions.TodoListAction());
+      store.dispatch(fromActions.todoListAction());
 
       expect(result).toEqual(true);
     });
@@ -98,7 +98,7 @@ describe('Todo List Selectors', () => {
 
       expect(result).toBeNull();
 
-      store.dispatch(new fromActions.TodoListSuccessAction(todos));
+      store.dispatch(fromActions.todoListSuccessAction({todos}));
 
       expect(result).toEqual(todos);
     });
@@ -114,7 +114,7 @@ describe('Todo List Selectors', () => {
 
       expect(result).toBeNull();
 
-      store.dispatch(new fromActions.TodoListFailAction(error));
+      store.dispatch(fromActions.todoListFailAction({error}));
 
       expect({ ...result }).toEqual({ ...error });
     });

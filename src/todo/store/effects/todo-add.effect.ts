@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
 
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { withLatestFrom, switchMap, map, catchError } from 'rxjs/operators';
 
 import { TodoService, ITodo } from '../../shared';
@@ -23,10 +23,9 @@ export class TodoAddEffect {
     protected todoSv: TodoService
   ) {}
 
-  @Effect()
-  add$ = this.actions$
-    .ofType<fromActions.TodoAddAction>(fromActions.TODO_ADD_ACTION)
+  add$ = createEffect(() => this.actions$
     .pipe(
+      ofType(fromActions.TODO_ADD_ACTION),
       withLatestFrom(this.token$, this.email$),
       switchMap(([action, token, email]) => {
         const { description, dueDate } = action;
@@ -40,14 +39,14 @@ export class TodoAddEffect {
         return this.todoSv
           .add(token, todo)
           .pipe(
-            map(res => new fromActions.TodoAddSuccessAction()),
-            catchError(error => of(new fromActions.TodoAddFailAction(error)))
+            map(res => fromActions.todoAddSuccessAction()),
+            catchError(error => of(fromActions.todoAddFailAction(error)))
           );
       })
-    );
+    ));
 
-  @Effect()
-  addSuccess$ = this.actions$
-    .ofType(fromActions.TODO_ADD_SUCCESS_ACTION)
-    .pipe(map(action => new fromTodoListActions.TodoListAction()));
+  addSuccess$ = createEffect(() => this.actions$
+    .pipe(
+      ofType(fromActions.TODO_ADD_SUCCESS_ACTION),
+      map(action => fromTodoListActions.todoListAction())));
 }

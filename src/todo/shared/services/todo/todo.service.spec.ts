@@ -10,8 +10,6 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 
-import { of } from 'rxjs/observable/of';
-
 import { ApiUrl } from '../../../../constants';
 import { ITodo } from '../../models';
 import { TodoService } from './todo.service';

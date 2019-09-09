@@ -1,5 +1,4 @@
 import * as fromTodoDelete from './todo-delete.actions';
-import { ITodo } from '../../shared/models';
 
 describe('Todo Delete', () => {
   describe('DeleteActions', () => {

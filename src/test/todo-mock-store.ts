@@ -1,8 +1,5 @@
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Observable} from 'rxjs/Observable';
-
+import {Observable, BehaviorSubject, of} from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
 
 import { Action } from '@ngrx/store';
 

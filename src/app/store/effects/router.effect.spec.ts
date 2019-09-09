@@ -1,33 +1,33 @@
-import { Injectable, Component } from "@angular/core";
-import { TestBed, fakeAsync, tick } from "@angular/core/testing";
-import { Location } from "@angular/common";
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { Routes, Router, RouterModule } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
+import { Injectable, Component } from '@angular/core';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { Location } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Routes, Router, RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { Actions, EffectsMetadata, getEffectsMetadata } from "@ngrx/effects";
+import { Actions, EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
 
-import { hot, cold } from "jasmine-marbles";
-import { provideMockActions } from "@ngrx/effects/testing";
-import { Observable } from "rxjs/Observable";
-import { empty } from "rxjs/observable/empty";
-import { of } from "rxjs/observable/of";
-import { _throw } from "rxjs/observable/throw";
+import { hot, cold } from 'jasmine-marbles';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Observable } from 'rxjs/Observable';
+import { empty } from 'rxjs/observable/empty';
+import { of } from 'rxjs/observable/of';
+import { _throw } from 'rxjs/observable/throw';
 
-import * as fromEffects from "./router.effect";
-import * as fromActions from "../actions/router.actions";
+import * as fromEffects from './router.effect';
+import * as fromActions from '../actions/router.actions';
 
 @Component({
-  template: "<router-outlet></router-outlet>"
+  template: '<router-outlet></router-outlet>'
 })
 class RoutingComponent {}
 
 @Component({
-  template: ""
+  template: ''
 })
 class DummyComponent {}
 
-describe("RouterEffects", () => {
+describe('RouterEffects', () => {
   let actions$: Observable<any>;
   let effects: fromEffects.RouterEffects;
   let metadata: EffectsMetadata<fromEffects.RouterEffects>;
@@ -35,8 +35,8 @@ describe("RouterEffects", () => {
   let location: Location;
 
   const ROUTES: Routes = [
-    { path: "path1", component: DummyComponent },
-    { path: "path2", component: DummyComponent }
+    { path: 'path1', component: DummyComponent },
+    { path: 'path2', component: DummyComponent }
   ];
 
   beforeEach(() => {
@@ -57,15 +57,15 @@ describe("RouterEffects", () => {
     router.initialNavigation();
   });
 
-  describe("navigate$", () => {
-    it("should navigate$ that dispatches an action", () => {
+  describe('navigate$', () => {
+    it('should navigate$ that dispatches an action', () => {
       expect(metadata.navigate$).toEqual({ dispatch: false });
     });
 
-    it("should Go action call route navigation", () => {
-      const navigateSpy = spyOn(router, "navigate");
+    it('should Go action call route navigation', () => {
+      const navigateSpy = spyOn(router, 'navigate');
       const payload = {
-        path: ["/path2"],
+        path: ['/path2'],
         query: {
           param: 3
         }
@@ -76,41 +76,41 @@ describe("RouterEffects", () => {
           query: payload.query
         });
       });
-      const action = new fromActions.Go(payload);
+      const action = fromActions.go(payload);
 
-      actions$ = hot("-a|", { a: action });
+      actions$ = hot('-a|', { a: action });
     });
   });
 
-  describe("navigateBack$", () => {
-    it("should navigateBack$ that dispatches an action", () => {
+  describe('navigateBack$', () => {
+    it('should navigateBack$ that dispatches an action', () => {
       expect(metadata.navigateBack$).toEqual({ dispatch: false });
     });
 
-    it("should Back action call location back", () => {
-      const backSpy = spyOn(location, "back");
+    it('should Back action call location back', () => {
+      const backSpy = spyOn(location, 'back');
       effects.navigateBack$.subscribe(() => {
         expect(backSpy).toHaveBeenCalled();
       });
 
-      const action = new fromActions.Back();
-      actions$ = hot("-a", { a: action });
+      const action = fromActions.back();
+      actions$ = hot('-a', { a: action });
     });
   });
 
-  describe("navigateForward$", () => {
-    it("should navigateForward$ that dispatches an action", () => {
+  describe('navigateForward$', () => {
+    it('should navigateForward$ that dispatches an action', () => {
       expect(metadata.navigateForward$).toEqual({ dispatch: false });
     });
 
-    it("should Forward action call location forward", () => {
-      const forwardSpy = spyOn(location, "forward");
+    it('should Forward action call location forward', () => {
+      const forwardSpy = spyOn(location, 'forward');
       effects.navigateForward$.subscribe(() => {
         expect(forwardSpy).toHaveBeenCalled();
       });
-      const action = new fromActions.Forward();
+      const action = fromActions.forward();
 
-      actions$ = hot("-a", { a: action });
+      actions$ = hot('-a', { a: action });
     });
   });
 });

@@ -1,11 +1,11 @@
-import * as fromLogin from "./login.actions";
+import * as fromLogin from './login.actions';
 
-describe("Auth Login Actions", () => {
-  describe("LoginAction", () => {
-    it("should create an action", () => {
-      const email = "test@testing.com";
-      const password = "password";
-      const action = new fromLogin.LoginAction(email, password);
+describe('Auth Login Actions', () => {
+  describe('LoginAction', () => {
+    it('should create an action', () => {
+      const email = 'test@testing.com';
+      const password = 'password';
+      const action = fromLogin.loginAction({email, password});
 
       expect({ ...action }).toEqual({
         type: fromLogin.LOGIN_ACTION,
@@ -15,11 +15,11 @@ describe("Auth Login Actions", () => {
     });
   });
 
-  describe("LoginSuccessAction", () => {
-    it("should create an action", () => {
-      const email = "test@testing.com";
-      const token = "0234rdREf";
-      const action = new fromLogin.LoginSuccessAction(token, email);
+  describe('LoginSuccessAction', () => {
+    it('should create an action', () => {
+      const email = 'test@testing.com';
+      const token = '0234rdREf';
+      const action = fromLogin.loginSuccessAction({token, email});
 
       expect({ ...action }).toEqual({
         type: fromLogin.LOGIN_SUCCESS_ACTION,
@@ -29,10 +29,10 @@ describe("Auth Login Actions", () => {
     });
   });
 
-  describe("LoginFailAction", () => {
-    it("should create an action", () => {
-      const error = { message: "Fatal exceptions" };
-      const action = new fromLogin.LoginFailAction(error);
+  describe('LoginFailAction', () => {
+    it('should create an action', () => {
+      const error = { message: 'Fatal exceptions' };
+      const action = fromLogin.loginFailAction({error});
 
       expect({ ...action }).toEqual({
         type: fromLogin.LOGIN_FAIL_ACTION,
@@ -42,10 +42,10 @@ describe("Auth Login Actions", () => {
   });
 });
 
-describe("Auth Logout Actions", () => {
-  describe("LogoutAction", () => {
-    it("should create an action", () => {
-      const action = new fromLogin.LogoutAction();
+describe('Auth Logout Actions', () => {
+  describe('LogoutAction', () => {
+    it('should create an action', () => {
+      const action = fromLogin.logoutAction();
 
       expect({ ...action }).toEqual({
         type: fromLogin.LOGOUT_ACTION

@@ -1,21 +1,11 @@
-import { Action } from '@ngrx/store';
+import { ITodoAddActionProps, ITodoAddFailActionProps } from './todo-add.actions.model';
+import { createAction, props } from '@ngrx/store';
 
 export const TODO_ADD_ACTION = '[Todo] Add';
-export class TodoAddAction implements Action {
-  type = TODO_ADD_ACTION;
-  constructor(public description: string, public dueDate: number) {}
-}
-export const TODO_ADD_SUCCESS_ACTION = '[Todo] Add Success';
-export class TodoAddSuccessAction implements Action {
-  type = TODO_ADD_SUCCESS_ACTION;
-}
-export const TODO_ADD_FAIL_ACTION = '[Todo] Add Fail';
-export class TodoAddFailAction implements Action {
-  type = TODO_ADD_FAIL_ACTION;
-  constructor(public error: any) {}
-}
+export const todoAddAction = createAction(TODO_ADD_ACTION, props<ITodoAddActionProps>());
 
-export type TodoAddActions
- = TodoAddAction
- | TodoAddSuccessAction
- | TodoAddFailAction;
+export const TODO_ADD_SUCCESS_ACTION = '[Todo] Add Success';
+export const todoAddSuccessAction = createAction(TODO_ADD_SUCCESS_ACTION);
+
+export const TODO_ADD_FAIL_ACTION = '[Todo] Add Fail';
+export const todoAddFailAction = createAction(TODO_ADD_FAIL_ACTION, props<ITodoAddFailActionProps>());

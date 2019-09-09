@@ -1,23 +1,11 @@
-import { Action } from '@ngrx/store';
-
-import { ITodo } from '../../shared/models';
+import { ITodoListFailActionProps, ITodoListSuccessActionProps } from './todo-list.actions.model';
+import { createAction, props } from '@ngrx/store';
 
 export const TODO_LIST_ACTION = '[Todo] List';
-export class TodoListAction implements Action {
-  type = TODO_LIST_ACTION;
-}
-export const TODO_LIST_SUCCESS_ACTION = '[Todo] List Success';
-export class TodoListSuccessAction implements Action {
-  type = TODO_LIST_SUCCESS_ACTION;
-  constructor(public todos: ITodo[]) {}
-}
-export const TODO_LIST_FAIL_ACTION = '[Todo] List Fail';
-export class TodoListFailAction implements Action {
-  type = TODO_LIST_FAIL_ACTION;
-  constructor(public error: any) {}
-}
+export const todoListAction = createAction(TODO_LIST_ACTION);
 
-export type TodoListActions =
-  | TodoListAction
-  | TodoListSuccessAction
-  | TodoListFailAction;
+export const TODO_LIST_SUCCESS_ACTION = '[Todo] List Success';
+export const todoListSuccessAction = createAction(TODO_LIST_SUCCESS_ACTION, props<ITodoListSuccessActionProps>());
+
+export const TODO_LIST_FAIL_ACTION = '[Todo] List Fail';
+export const todoListFailAction = createAction(TODO_LIST_FAIL_ACTION, props<ITodoListFailActionProps>());

@@ -3,7 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angul
 
 import { Store } from '@ngrx/store';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import * as fromRouteStore from '../../../app/store';
@@ -19,7 +19,7 @@ export class AuthenticatedGuard implements CanActivate {
       map(x => !!x),
       tap(x => {
         if (!x) {
-          this.store.dispatch(new fromRouteStore.Go({
+          this.store.dispatch(fromRouteStore.go({
             path: ['/auth']
           }));
         }

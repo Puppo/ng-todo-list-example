@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
 
-import { of } from 'rxjs/observable/of';
-import { switchMap, map, catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { switchMap, map, catchError } from 'rxjs/operators';
 
 import { AuthService } from '../../shared';
 import * as fromRoot from '../../../app/store';
@@ -12,47 +12,47 @@ import * as fromActions from '../actions/login.actions';
 export class LoginEffect {
   constructor(protected actions$: Actions, protected authSv: AuthService) {}
 
-  @Effect()
-  login$ = this.actions$
-    .ofType<fromActions.LoginAction>(fromActions.LOGIN_ACTION)
+  login$ = createEffect(() => this.actions$
     .pipe(
+      ofType(fromActions.LOGIN_ACTION),
       switchMap(action => {
         const { email, password } = action;
         return this.authSv.login(email, password).pipe(
           map(res => {
             if (!!res) {
-              return new fromActions.LoginSuccessAction(res, email);
+              return fromActions.loginSuccessAction({
+                token: res, email
+              });
             }
-            return new fromActions.LoginFailAction({
-              message: 'Invalid login'
+            return fromActions.loginFailAction({
+              error: {
+                message: 'Invalid login'
+              }
             });
           }),
-          catchError(err => of(new fromActions.LoginFailAction(err)))
+          catchError(error => of(fromActions.loginFailAction({error})))
         );
       })
-    );
+    ));
 
-  @Effect()
-  loginSuccess$ = this.actions$
-    .ofType<fromActions.LoginSuccessAction>(fromActions.LOGIN_SUCCESS_ACTION)
+  loginSuccess$ = createEffect(() => this.actions$
     .pipe(
+      ofType(fromActions.LOGIN_SUCCESS_ACTION),
       map(
         x =>
-          new fromRoot.Go({
+          fromRoot.go({
             path: ['/todo']
           })
       )
-    );
-
-  @Effect()
-  logout$ = this.actions$
-    .ofType<fromActions.LogoutAction>(fromActions.LOGOUT_ACTION)
+    ));
+  logout$ = createEffect(() => this.actions$
     .pipe(
+      ofType(fromActions.LOGOUT_ACTION),
       map(
         x =>
-          new fromRoot.Go({
+          fromRoot.go({
             path: ['/auth']
           })
       )
-    );
+    ));
 }

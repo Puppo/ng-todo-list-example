@@ -1,5 +1,4 @@
-import { Action } from '@ngrx/store';
-
+import { createReducer, on, Action } from '@ngrx/store';
 import * as fromActions from '../actions';
 
 export interface IRegisterState {
@@ -14,26 +13,15 @@ export const INIT_REGISTER_STATE: IRegisterState = {
   error: null
 };
 
-export function reducer(
-  state = INIT_REGISTER_STATE,
-  action: fromActions.RegisterActions
-): IRegisterState {
-  switch (action.type) {
-    case fromActions.REGISTER_ACTION:
-      return handleRegister(state, action);
-    case fromActions.REGISTER_SUCCESS_ACTION:
-      return handleRegisterSuccess(state, action);
-    case fromActions.REGISTER_FAIL_ACTION:
-      return handleRegisterFail(state, action);
-
-    default:
-      return state;
-  }
-}
+const featureReducer = createReducer(
+  INIT_REGISTER_STATE,
+  on(fromActions.registerAction, handleRegister),
+  on(fromActions.registerSuccessAction, handleRegisterSuccess),
+  on(fromActions.registerFailAction, handleRegisterFail)
+);
 
 function handleRegister(
-  state: IRegisterState,
-  action: fromActions.RegisterAction
+  state: IRegisterState
 ): IRegisterState {
   const loading = true;
   const success = false;
@@ -47,8 +35,7 @@ function handleRegister(
 }
 
 function handleRegisterSuccess(
-  state: IRegisterState,
-  action: fromActions.RegisterSuccessAction
+  state: IRegisterState
 ): IRegisterState {
   const loading = false;
   const success = true;
@@ -63,14 +50,15 @@ function handleRegisterSuccess(
 
 function handleRegisterFail(
   state: IRegisterState,
-  action: fromActions.RegisterFailAction
+  payload: fromActions.IRegisterFailActionProps
 ): IRegisterState {
   const loading = false;
   const success = false;
-  const { error } = action;
+  const { error } = payload;
   return {
     ...state,
     loading,
+    success,
     error
   };
 }
@@ -90,4 +78,8 @@ export function getRegisterHasError(state: IRegisterState): any {
 
 export function getRegisterErrorMessage(state: IRegisterState): any {
   return !!state.error ? state.error.message : null;
+}
+
+export function reducer(state: IRegisterState | undefined, action: Action) {
+  return featureReducer(state, action);
 }

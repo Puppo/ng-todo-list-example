@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
 
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { withLatestFrom, switchMap, map, catchError } from 'rxjs/operators';
 
-import { TodoService, ITodo } from '../../shared';
+import { TodoService } from '../../shared';
 
 import * as fromAuth from '../../../auth/store';
 import * as fromActions from '../actions/todo-list.actions';
@@ -19,10 +19,9 @@ export class TodoListEffect {
     protected todoSv: TodoService
   ) {}
 
-  @Effect()
-  list$ = this.actions$
-  .ofType<fromActions.TodoListAction>(fromActions.TODO_LIST_ACTION)
+  list$ = createEffect(() => this.actions$
   .pipe(
+    ofType(fromActions.TODO_LIST_ACTION),
     withLatestFrom(
       this.store.select(fromAuth.getLoginTokenSelector),
       this.store.select(fromAuth.getLoginEmailSelector)
@@ -30,9 +29,9 @@ export class TodoListEffect {
     switchMap(([action, token, email]) => {
       return this.todoSv.get(token, email)
       .pipe(
-        map(todos => new fromActions.TodoListSuccessAction(todos)),
-        catchError(error => of(new fromActions.TodoListFailAction(error)))
+        map(todos => fromActions.todoListSuccessAction({todos})),
+        catchError(error => of(fromActions.todoListFailAction({error})))
       );
     })
-  );
+  ));
 }

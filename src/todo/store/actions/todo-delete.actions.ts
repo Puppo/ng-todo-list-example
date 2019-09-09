@@ -1,21 +1,11 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+import { ITodoDeleteActionProps, ITodoDeleteFailActionProps } from './todo-delete.actions.model';
 
 export const TODO_DELETE_ACTION = '[Todo] Delete';
-export class TodoDeleteAction implements Action {
-  type = TODO_DELETE_ACTION;
-  constructor(public id: number) {}
-}
-export const TODO_DELETE_SUCCESS_ACTION = '[Todo] Delete Success';
-export class TodoDeleteSuccessAction implements Action {
-  type = TODO_DELETE_SUCCESS_ACTION;
-}
-export const TODO_DELETE_FAIL_ACTION = '[Todo] Delete Fail';
-export class TodoDeleteFailAction implements Action {
-  type = TODO_DELETE_FAIL_ACTION;
-  constructor(public error: any) {}
-}
+export const todoDeleteAction = createAction(TODO_DELETE_ACTION, props<ITodoDeleteActionProps>());
 
-export type TodoDeleteActions =
-  TodoDeleteAction
-  | TodoDeleteSuccessAction
-  | TodoDeleteAction;
+export const TODO_DELETE_SUCCESS_ACTION = '[Todo] Delete Success';
+export const todoDeleteSuccessAction = createAction(TODO_DELETE_SUCCESS_ACTION);
+
+export const TODO_DELETE_FAIL_ACTION = '[Todo] Delete Fail';
+export const todoDeleteFailAction = createAction(TODO_DELETE_FAIL_ACTION, props<ITodoDeleteFailActionProps>());

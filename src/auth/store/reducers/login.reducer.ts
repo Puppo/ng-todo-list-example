@@ -1,6 +1,6 @@
-import { Action } from '@ngrx/store';
-
+import { ILoginActionProps } from './../actions/login.actions.model';
 import * as fromActions from '../actions';
+import { on, createReducer, Action } from '@ngrx/store';
 
 export interface ILoginState {
   email: string;
@@ -16,28 +16,16 @@ export const INIT_LOGIN_STATE: ILoginState = {
   error: null
 };
 
-export function reducer(
-  state = INIT_LOGIN_STATE,
-  action: fromActions.LoginActions
-): ILoginState {
-  switch (action.type) {
-    case fromActions.LOGIN_ACTION:
-      return handleLogin(state, action);
-    case fromActions.LOGIN_SUCCESS_ACTION:
-      return handleLoginSuccess(state, action);
-    case fromActions.LOGIN_FAIL_ACTION:
-      return handleLoginFail(state, action);
-    case fromActions.LOGOUT_ACTION:
-      return handleLogout(state, action);
-
-    default:
-      return state;
-  }
-}
+const featureReducer = createReducer(
+  INIT_LOGIN_STATE,
+  on(fromActions.loginAction, handleLogin),
+  on(fromActions.loginSuccessAction, handleLoginSuccess),
+  on(fromActions.loginFailAction, handleLoginFail),
+  on(fromActions.logoutAction, handleLogout)
+);
 
 function handleLogin(
-  state: ILoginState,
-  action: fromActions.LoginAction
+  state: ILoginState
 ): ILoginState {
   const email = null;
   const token = null;
@@ -54,9 +42,9 @@ function handleLogin(
 
 function handleLoginSuccess(
   state: ILoginState,
-  action: fromActions.LoginSuccessAction
+  payload: fromActions.ILoginSuccessActionProps
 ): ILoginState {
-  const { email, token } = action;
+  const { email, token } = payload;
   const loading = false;
   return {
     ...state,
@@ -68,12 +56,12 @@ function handleLoginSuccess(
 
 function handleLoginFail(
   state: ILoginState,
-  action: fromActions.LoginFailAction
+  payload: fromActions.ILoginFailActionProps
 ): ILoginState {
   const email = null;
   const token = null;
   const loading = false;
-  const { error } = action;
+  const { error } = payload;
   return {
     ...state,
     email,
@@ -84,13 +72,8 @@ function handleLoginFail(
 }
 
 function handleLogout(
-  state: ILoginState,
-  action: fromActions.LogoutAction
+  state: ILoginState
 ): ILoginState {
-  const email = null;
-  const token = null;
-  const loading = false;
-  const error = null;
   return {
     ...state,
     ...INIT_LOGIN_STATE,
@@ -114,4 +97,9 @@ export function getLoginHasError(state: ILoginState): boolean {
 }
 export function getLoginErrorMessage(state: ILoginState): boolean {
   return !!state.error ? state.error.message : null;
+}
+
+
+export function reducer(state: ILoginState | undefined, action: Action) {
+  return featureReducer(state, action);
 }

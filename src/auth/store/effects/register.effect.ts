@@ -1,44 +1,42 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
 
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 
 import { AuthService } from '../../shared';
 import * as fromRoot from '../../../app/store';
 import * as fromActions from '../actions/register.actions';
+import * as fromProps from './../actions/register.actions.model';
 
 @Injectable()
 export class RegisterEffect {
   constructor(protected actions$: Actions, protected authSv: AuthService) {}
 
-  @Effect()
-  register$ = this.actions$
-    .ofType<fromActions.RegisterAction>(fromActions.REGISTER_ACTION)
+  register$ = createEffect(() => this.actions$
     .pipe(
-      switchMap(action => {
-        const reqEmail = action.email;
-        const reqPassword = action.password;
+      ofType(fromActions.REGISTER_ACTION),
+      switchMap((payload: fromProps.IRegisterActionProps) => {
+        const { email, password } = payload;
         return this.authSv
-          .register(reqEmail, reqPassword)
+          .register(email, password)
           .pipe(
-            map(res => new fromActions.RegisterSuccessAction()),
-            catchError(err => of(new fromActions.RegisterFailAction(err)))
+            map(res => fromActions.registerSuccessAction()),
+            catchError(err => of(fromActions.registerFailAction(err)))
           );
       })
-    );
+    ));
 
-  @Effect()
-  registerSuccess$ = this.actions$
-    .ofType<fromActions.RegisterSuccessAction>(
-      fromActions.REGISTER_SUCCESS_ACTION
-    )
+  registerSuccess$ = createEffect(() => this.actions$
     .pipe(
+      ofType(
+        fromActions.REGISTER_SUCCESS_ACTION
+      ),
       map(
         x =>
-          new fromRoot.Go({
+          fromRoot.go({
             path: ['/auth']
           })
       )
-    );
+    ));
 }

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 
 import * as fromStore from '../../../store';
 
@@ -42,7 +41,7 @@ export class RegisterComponent {
     const email = form.get('email').value as string;
     const password = form.get('password').value as string;
 
-    const action = new fromStore.RegisterAction(email, password);
+    const action = fromStore.registerAction({email, password});
     this.store.dispatch(action);
   }
 }

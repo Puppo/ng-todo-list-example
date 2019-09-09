@@ -10,7 +10,7 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 import { ApiUrl } from '../../../../constants';
 import { AuthService } from './auth.service';

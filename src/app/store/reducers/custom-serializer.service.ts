@@ -1,10 +1,10 @@
-import * as fromRouter from "@ngrx/router-store";
+import * as fromRouter from '@ngrx/router-store';
 
 import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
   Params
-} from "@angular/router";
+} from '@angular/router';
 
 export interface RouterStateUrl {
   url: string;

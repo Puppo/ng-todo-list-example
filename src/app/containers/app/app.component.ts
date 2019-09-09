@@ -35,6 +35,6 @@ export class AppComponent {
   );
   constructor(protected store: Store<fromAuthStore.IAuthState>) {}
   logout(): void {
-    this.store.dispatch(new fromAuthStore.LogoutAction());
+    this.store.dispatch(fromAuthStore.logoutAction());
   }
 }

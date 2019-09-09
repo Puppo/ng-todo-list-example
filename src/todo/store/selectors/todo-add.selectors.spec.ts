@@ -41,7 +41,7 @@ describe('Todo Add Selectors', () => {
         error: null
       });
 
-      store.dispatch(new fromActions.TodoAddSuccessAction());
+      store.dispatch(fromActions.todoAddSuccessAction());
 
       expect(result).toEqual({
         loading: false,
@@ -60,7 +60,7 @@ describe('Todo Add Selectors', () => {
 
       expect(result).toEqual(false);
 
-      store.dispatch(new fromActions.TodoAddAction(description, dueDate));
+      store.dispatch(fromActions.todoAddAction({description, dueDate}));
 
       expect(result).toEqual(true);
     });
@@ -76,7 +76,7 @@ describe('Todo Add Selectors', () => {
 
       expect(result).toBeNull();
 
-      store.dispatch(new fromActions.TodoAddFailAction(error));
+      store.dispatch(fromActions.todoAddFailAction({error}));
 
       expect({ ...result }).toEqual({ ...error });
     });

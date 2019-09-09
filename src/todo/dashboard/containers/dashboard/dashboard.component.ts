@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import * as fromStore from '../../../store';
 import { ITodo } from '../../../shared/models';
@@ -26,17 +26,17 @@ export class DashboardComponent implements OnInit {
   constructor(protected store: Store<fromStore.ITodoState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new fromStore.TodoListAction());
+    this.store.dispatch(fromStore.todoListAction());
   }
   add(form: FormGroup): void {
     const description = form.get('description').value;
     const dueDateIso = form.get('dueDate').value;
     const dueDate = !!dueDateIso ? Date.parse(dueDateIso) : null;
-    this.store.dispatch(new fromStore.TodoAddAction(description, dueDate));
+    this.store.dispatch(fromStore.todoAddAction({description, dueDate}));
   }
 
   delete(todo: ITodo): void {
     const { id } = todo;
-    this.store.dispatch(new fromStore.TodoDeleteAction(id));
+    this.store.dispatch(fromStore.todoDeleteAction({id}));
   }
 }

@@ -16,7 +16,7 @@ describe('TodoListReducer', () => {
   describe('TODO_LIST_ACTION action', () => {
     it('should set loading to true', () => {
       const { INIT_TODO_LIST_STATE } = fromTodoList;
-      const action = new fromActions.TodoListAction();
+      const action = fromActions.todoListAction();
       const state = fromTodoList.reducer(INIT_TODO_LIST_STATE, action);
 
       expect(state.loading).toEqual(true);
@@ -48,7 +48,7 @@ describe('TodoListReducer', () => {
           updateAt: new Date(2018, 1, 3).getTime()
         }
       ];
-      const action = new fromActions.TodoListSuccessAction(todos);
+      const action = fromActions.todoListSuccessAction({todos});
       const state = fromTodoList.reducer(INIT_TODO_LIST_STATE, action);
 
       expect(state.loading).toEqual(false);
@@ -62,7 +62,7 @@ describe('TodoListReducer', () => {
     it('should set error', () => {
       const { INIT_TODO_LIST_STATE } = fromTodoList;
       const error = { message: 'Fatal Exception' };
-      const action = new fromActions.TodoListFailAction(error);
+      const action = fromActions.todoListFailAction({error});
       const state = fromTodoList.reducer(INIT_TODO_LIST_STATE, action);
 
       expect(state.loading).toEqual(false);
