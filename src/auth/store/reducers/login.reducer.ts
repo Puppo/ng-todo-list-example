@@ -1,6 +1,7 @@
 import { ILoginActionProps } from './../actions/login.actions.model';
 import * as fromActions from '../actions';
 import { on, createReducer, Action } from '@ngrx/store';
+import { Injectable } from '@angular/core';
 
 export interface ILoginState {
   email: string;
@@ -9,75 +10,84 @@ export interface ILoginState {
   error: any;
 }
 
-export const INIT_LOGIN_STATE: ILoginState = {
-  email: null,
-  token: null,
-  loading: false,
-  error: null
-};
+@Injectable()
+export class LoginReducerService {
 
-const featureReducer = createReducer(
-  INIT_LOGIN_STATE,
-  on(fromActions.loginAction, handleLogin),
-  on(fromActions.loginSuccessAction, handleLoginSuccess),
-  on(fromActions.loginFailAction, handleLoginFail),
-  on(fromActions.logoutAction, handleLogout)
-);
-
-function handleLogin(
-  state: ILoginState
-): ILoginState {
-  const email = null;
-  const token = null;
-  const loading = true;
-  const error = null;
-  return {
-    ...state,
-    email,
-    token,
-    loading,
-    error
+  protected readonly INIT_LOGIN_STATE: ILoginState = {
+    email: null,
+    token: null,
+    loading: false,
+    error: null
   };
-}
 
-function handleLoginSuccess(
-  state: ILoginState,
-  payload: fromActions.ILoginSuccessActionProps
-): ILoginState {
-  const { email, token } = payload;
-  const loading = false;
-  return {
-    ...state,
-    email,
-    token,
-    loading
-  };
-}
+  protected featureReducer = createReducer(
+    this.INIT_LOGIN_STATE,
+    on(fromActions.loginAction, this.handleLogin),
+    on(fromActions.loginSuccessAction, this.handleLoginSuccess),
+    on(fromActions.loginFailAction, this.handleLoginFail),
+    on(fromActions.logoutAction, this.handleLogout)
+  );
 
-function handleLoginFail(
-  state: ILoginState,
-  payload: fromActions.ILoginFailActionProps
-): ILoginState {
-  const email = null;
-  const token = null;
-  const loading = false;
-  const { error } = payload;
-  return {
-    ...state,
-    email,
-    token,
-    loading,
-    error
-  };
-}
+  reducer(state: ILoginState | undefined, action: Action) {
+    return this.featureReducer(state, action);
+  }
 
-function handleLogout(
-  state: ILoginState
-): ILoginState {
-  return {
-    ...state,
-    ...INIT_LOGIN_STATE,
-  };
+  protected handleLogin(
+    state: ILoginState
+  ): ILoginState {
+    const email = null;
+    const token = null;
+    const loading = true;
+    const error = null;
+    return {
+      ...state,
+      email,
+      token,
+      loading,
+      error
+    };
+  }
+
+  protected handleLoginSuccess(
+    state: ILoginState,
+    payload: fromActions.ILoginSuccessActionProps
+  ): ILoginState {
+    const { email, token } = payload;
+    const loading = false;
+    return {
+      ...state,
+      email,
+      token,
+      loading
+    };
+  }
+
+  protected handleLoginFail(
+    state: ILoginState,
+    payload: fromActions.ILoginFailActionProps
+  ): ILoginState {
+    const email = null;
+    const token = null;
+    const loading = false;
+    const { error } = payload;
+    return {
+      ...state,
+      email,
+      token,
+      loading,
+      error
+    };
+  }
+
+  protected handleLogout(
+    state: ILoginState
+  ): ILoginState {
+    return {
+      ...state,
+      ...this.INIT_LOGIN_STATE,
+    };
+  }
+
 }
 
 export function getLoginEmail(state: ILoginState): string {
@@ -97,9 +107,4 @@ export function getLoginHasError(state: ILoginState): boolean {
 }
 export function getLoginErrorMessage(state: ILoginState): boolean {
   return !!state.error ? state.error.message : null;
-}
-
-
-export function reducer(state: ILoginState | undefined, action: Action) {
-  return featureReducer(state, action);
 }
