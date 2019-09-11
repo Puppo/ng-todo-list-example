@@ -5,7 +5,7 @@ describe('Auth Register Actions', () => {
     it('should create an action', () => {
       const email = 'test@testing.com';
       const password = 'password';
-      const action = new fromRegister.RegisterAction(email, password);
+      const action = fromRegister.registerAction({ email, password });
 
       expect({ ...action }).toEqual({
         type: fromRegister.REGISTER_ACTION,
@@ -17,7 +17,7 @@ describe('Auth Register Actions', () => {
 
   describe('RegisterSuccessAction', () => {
     it('should create an action', () => {
-      const action = new fromRegister.RegisterSuccessAction();
+      const action = fromRegister.registerSuccessAction();
 
       expect({ ...action }).toEqual({
         type: fromRegister.REGISTER_SUCCESS_ACTION
@@ -28,7 +28,7 @@ describe('Auth Register Actions', () => {
   describe('RegisterFailAction', () => {
     it('should create an action', () => {
       const error = { message: 'Fatal exceptions' };
-      const action = new fromRegister.RegisterFailAction(error);
+      const action = fromRegister.registerFailAction({ error });
 
       expect({ ...action }).toEqual({
         type: fromRegister.REGISTER_FAIL_ACTION,

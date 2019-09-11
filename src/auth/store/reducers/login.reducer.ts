@@ -1,6 +1,6 @@
 import { ILoginActionProps } from './../actions/login.actions.model';
 import * as fromActions from '../actions';
-import { on, createReducer, Action } from '@ngrx/store';
+import { on, createReducer, Action, ActionReducer } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 
 export interface ILoginState {
@@ -13,22 +13,26 @@ export interface ILoginState {
 @Injectable()
 export class LoginReducerService {
 
-  protected readonly INIT_LOGIN_STATE: ILoginState = {
-    email: null,
-    token: null,
-    loading: false,
-    error: null
-  };
+  protected get initLoginState(): ILoginState {
+    return {
+      email: null,
+      token: null,
+      loading: false,
+      error: null
+    };
+  }
 
-  protected featureReducer = createReducer(
-    this.INIT_LOGIN_STATE,
-    on(fromActions.loginAction, this.handleLogin),
-    on(fromActions.loginSuccessAction, this.handleLoginSuccess),
-    on(fromActions.loginFailAction, this.handleLoginFail),
-    on(fromActions.logoutAction, this.handleLogout)
-  );
+  protected get featureReducer(): ActionReducer<ILoginState, Action> {
+    return createReducer(
+      this.initLoginState,
+      on(fromActions.loginAction, this.handleLogin),
+      on(fromActions.loginSuccessAction, this.handleLoginSuccess),
+      on(fromActions.loginFailAction, this.handleLoginFail),
+      on(fromActions.logoutAction, this.handleLogout.bind(this))
+    );
+  }
 
-  reducer(state: ILoginState | undefined, action: Action) {
+  reducer(state: ILoginState | undefined, action: Action): ILoginState {
     return this.featureReducer(state, action);
   }
 
@@ -84,7 +88,7 @@ export class LoginReducerService {
   ): ILoginState {
     return {
       ...state,
-      ...this.INIT_LOGIN_STATE,
+      ...this.initLoginState,
     };
   }
 

@@ -6,8 +6,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { AuthSharedModule } from './shared';
-import { AUTH_REDUCER_TOKEN, effects, AuthReducers } from './store';
-import * as fromGuards from './guards';
+import { AUTH_REDUCER_TOKEN, effects, AuthServicesReducers } from './store';
+import { NotAuthenticatedGuard, AuthGuards } from './guards';
 
 export const ROUTES: Routes = [
   {
@@ -17,12 +17,12 @@ export const ROUTES: Routes = [
       {
         path: 'login',
         loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
-        canActivate: [fromGuards.NotAuthenticatedGuard]
+        canActivate: [NotAuthenticatedGuard]
       },
       {
         path: 'register',
         loadChildren: () => import('./register/register.module').then(m => m.RegisterModule),
-        canActivate: [fromGuards.NotAuthenticatedGuard]
+        canActivate: [NotAuthenticatedGuard]
       }
     ]
   }
@@ -36,6 +36,6 @@ export const ROUTES: Routes = [
     StoreModule.forFeature('auth', AUTH_REDUCER_TOKEN),
     EffectsModule.forFeature(effects)
   ],
-  providers: [AuthReducers, ...fromGuards.AuthGuards]
+  providers: [AuthServicesReducers, AuthGuards]
 })
 export class AuthModule {}

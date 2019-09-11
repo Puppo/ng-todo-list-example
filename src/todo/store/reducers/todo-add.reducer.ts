@@ -1,57 +1,71 @@
 import { ITodoAddFailActionProps } from './../actions/todo-add.actions.model';
 import { createReducer, on, Action } from '@ngrx/store';
 import * as fromActions from '../actions/todo-add.actions';
+import { Injectable } from '@angular/core';
 
 export interface ITodoAddState {
   loading: boolean;
   error: any;
 }
 
-export const INIT_TODO_ADD_STATE: ITodoAddState = {
-  loading: false,
-  error: null
-};
+@Injectable()
+export class TodoAddReducerService {
 
-const featureReducer = createReducer(
-  INIT_TODO_ADD_STATE,
-  on(fromActions.todoAddAction, handleAdd),
-  on(fromActions.todoAddSuccessAction, handleAddSuccess),
-  on(fromActions.todoAddFailAction, handleAddFail)
-);
+  protected get initTodoAddState(): ITodoAddState {
+    return {
+      loading: false,
+      error: null
+    };
+  }
 
-function handleAdd(
-  state: ITodoAddState
-): ITodoAddState {
-  const loading = true;
-  const error = null;
-  return {
-    ...state,
-    loading,
-    error
-  };
-}
+  protected get featureReducer() {
+    return createReducer(
+      this.initTodoAddState,
+      on(fromActions.todoAddAction, this.handleAdd),
+      on(fromActions.todoAddSuccessAction, this.handleAddSuccess),
+      on(fromActions.todoAddFailAction, this.handleAddFail)
+    );
+  }
 
-function handleAddSuccess(
-  state: ITodoAddState
-): ITodoAddState {
-  const loading = false;
-  return {
-    ...state,
-    loading
-  };
-}
+  reducer(state: ITodoAddState | undefined, action: Action): ITodoAddState {
+    return this.featureReducer(state, action);
+  }
 
-function handleAddFail(
-  state: ITodoAddState,
-  payload: ITodoAddFailActionProps
-): ITodoAddState {
-  const loading = false;
-  const { error } = payload;
-  return {
-    ...state,
-    loading,
-    error
-  };
+  protected handleAdd(
+    state: ITodoAddState
+  ): ITodoAddState {
+    const loading = true;
+    const error = null;
+    return {
+      ...state,
+      loading,
+      error
+    };
+  }
+
+  protected handleAddSuccess(
+    state: ITodoAddState
+  ): ITodoAddState {
+    const loading = false;
+    return {
+      ...state,
+      loading
+    };
+  }
+
+  protected handleAddFail(
+    state: ITodoAddState,
+    payload: ITodoAddFailActionProps
+  ): ITodoAddState {
+    const loading = false;
+    const { error } = payload;
+    return {
+      ...state,
+      loading,
+      error
+    };
+  }
+
 }
 
 export function getTodoAddLoading(state: ITodoAddState): boolean {
@@ -60,8 +74,4 @@ export function getTodoAddLoading(state: ITodoAddState): boolean {
 
 export function getTodoAddError(state: ITodoAddState): boolean {
   return state.error;
-}
-
-export function reducer(state: ITodoAddState | undefined, action: Action) {
-  return featureReducer(state, action);
 }

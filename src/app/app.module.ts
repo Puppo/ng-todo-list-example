@@ -5,19 +5,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatToolbarModule,
-  MatIconModule,
-  MatMenuModule,
-  MatButtonModule
-} from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatMenuModule, MatButtonModule } from '@angular/material';
 
 import { environment } from '../environments/environment';
 
-import {
-  StoreRouterConnectingModule,
-  RouterStateSerializer
-} from '@ngrx/router-store';
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { StoreModule, MetaReducer, ActionReducer } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -34,9 +26,7 @@ import { ApiUrl } from '../constants';
 
 import * as fromContainers from './containers';
 
-export function localStorageSyncReducer(
-  reducer: ActionReducer<any>
-): ActionReducer<any> {
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
     keys: ['auth', 'todo'],
     rehydrate: true
@@ -46,8 +36,8 @@ export function localStorageSyncReducer(
 export const metaReducers: MetaReducer<any>[] = environment.e2e
   ? []
   : !environment.production
-    ? [localStorageSyncReducer]
-    : [localStorageSyncReducer];
+  ? [localStorageSyncReducer]
+  : [localStorageSyncReducer];
 
 const ROUTES: Routes = [{ path: '', pathMatch: 'full', redirectTo: 'auth' }];
 
@@ -63,7 +53,15 @@ const ROUTES: Routes = [{ path: '', pathMatch: 'full', redirectTo: 'auth' }];
     MatMenuModule,
     MatButtonModule,
     RouterModule.forRoot(ROUTES),
-    StoreModule.forRoot(reducers, { metaReducers, runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true } }),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true
+      }
+    }),
     EffectsModule.forRoot(effects),
     StoreRouterConnectingModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument() : [],

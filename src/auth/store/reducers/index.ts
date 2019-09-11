@@ -9,19 +9,21 @@ export interface IAuthState {
   register: fromRegister.IRegisterState;
 }
 
-export const AUTH_REDUCER_TOKEN = new InjectionToken<ActionReducerMap<IAuthState>>('Auth Reducers', {
-  factory: () => {
-    const loginServ = inject(fromLogin.LoginReducerService);
-    const registerServ = inject(fromRegister.RegisterReducerService);
+export function authReducers() {
+  const loginServ = inject(fromLogin.LoginReducerService);
+  const registerServ = inject(fromRegister.RegisterReducerService);
 
-    return {
-      login: loginServ.reducer.bind(loginServ),
-      register: registerServ.reducer.bind(registerServ),
-    };
-  }
+  return {
+    login: loginServ.reducer.bind(loginServ),
+    register: registerServ.reducer.bind(registerServ),
+  };
+}
+
+export const AUTH_REDUCER_TOKEN = new InjectionToken<ActionReducerMap<IAuthState>>('Auth Reducers', {
+  factory: authReducers
 });
 
-export const AuthReducers: any[] = [fromLogin.LoginReducerService, fromRegister.RegisterReducerService];
+export const AuthServicesReducers: any[] = [fromLogin.LoginReducerService, fromRegister.RegisterReducerService];
 
 export const getAuthSelector = createFeatureSelector<IAuthState>(
   'auth'

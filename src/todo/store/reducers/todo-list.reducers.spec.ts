@@ -3,21 +3,30 @@ import * as fromActions from '../actions/todo-list.actions';
 import { ITodo } from '../../shared/models';
 
 describe('TodoListReducer', () => {
+  let service: fromTodoList.TodoListReducerService;
+  const initTodoListState: fromTodoList.ITodoListState = {
+    loading: false,
+    error: null,
+    todos: null
+  };
+
+  afterEach(() => {
+    service = new fromTodoList.TodoListReducerService();
+  });
+
   describe('undefined action', () => {
     it('should return the default state', () => {
-      const { INIT_TODO_LIST_STATE } = fromTodoList;
       const action = {} as any;
-      const state = fromTodoList.reducer(undefined, action);
+      const state = service.reducer(undefined, action);
 
-      expect(state).toBe(INIT_TODO_LIST_STATE);
+      expect(state).toBe(initTodoListState);
     });
   });
 
   describe('TODO_LIST_ACTION action', () => {
     it('should set loading to true', () => {
-      const { INIT_TODO_LIST_STATE } = fromTodoList;
       const action = fromActions.todoListAction();
-      const state = fromTodoList.reducer(INIT_TODO_LIST_STATE, action);
+      const state = service.reducer(initTodoListState, action);
 
       expect(state.loading).toEqual(true);
       expect(state.todos).toBeNull();
@@ -27,7 +36,6 @@ describe('TodoListReducer', () => {
 
   describe('TODO_LIST_SUCCESS_ACTION action', () => {
     it('should set success to true', () => {
-      const { INIT_TODO_LIST_STATE } = fromTodoList;
       const todos: ITodo[] = [
         {
           id: 1,
@@ -49,7 +57,7 @@ describe('TodoListReducer', () => {
         }
       ];
       const action = fromActions.todoListSuccessAction({todos});
-      const state = fromTodoList.reducer(INIT_TODO_LIST_STATE, action);
+      const state = service.reducer(initTodoListState, action);
 
       expect(state.loading).toEqual(false);
       expect(state.todos).toEqual(todos);
@@ -60,10 +68,9 @@ describe('TodoListReducer', () => {
 
   describe('TODO_LIST_FAIL_ACTION action', () => {
     it('should set error', () => {
-      const { INIT_TODO_LIST_STATE } = fromTodoList;
       const error = { message: 'Fatal Exception' };
       const action = fromActions.todoListFailAction({error});
-      const state = fromTodoList.reducer(INIT_TODO_LIST_STATE, action);
+      const state = service.reducer(initTodoListState, action);
 
       expect(state.loading).toEqual(false);
       expect(state.todos).toBeNull();

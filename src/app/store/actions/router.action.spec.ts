@@ -3,8 +3,6 @@ import * as fromRouter from './router.actions';
 describe('Router Actions', () => {
   describe('GoAction', () => {
     it('should create an action', () => {
-      const email = 'test@testing.com';
-      const password = 'password';
       const payload = {
         path: ['/login'],
         query: { query: 2 }
@@ -14,7 +12,7 @@ describe('Router Actions', () => {
 
       expect({ ...action }).toEqual({
         type: fromRouter.GO,
-        payload
+        ...payload
       });
     });
   });

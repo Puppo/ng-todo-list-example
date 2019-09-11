@@ -4,7 +4,7 @@ describe('Todo Delete', () => {
   describe('DeleteActions', () => {
     it('should create an action', () => {
       const id = 5;
-      const action = new fromTodoDelete.TodoDeleteAction(id);
+      const action = fromTodoDelete.todoDeleteAction({ id });
 
       expect({ ...action }).toEqual({
         type: fromTodoDelete.TODO_DELETE_ACTION,
@@ -15,7 +15,7 @@ describe('Todo Delete', () => {
 
   describe('DeleteSuccessActions', () => {
     it('should create an action', () => {
-      const action = new fromTodoDelete.TodoDeleteSuccessAction();
+      const action = fromTodoDelete.todoDeleteSuccessAction();
 
       expect({ ...action }).toEqual({
         type: fromTodoDelete.TODO_DELETE_SUCCESS_ACTION
@@ -26,7 +26,7 @@ describe('Todo Delete', () => {
   describe('DeleteFailActions', () => {
     it('should create an action', () => {
       const error = { message: 'Fatal exception' };
-      const action = new fromTodoDelete.TodoDeleteFailAction(error);
+      const action = fromTodoDelete.todoDeleteFailAction({ error });
 
       expect({ ...action }).toEqual({
         type: fromTodoDelete.TODO_DELETE_FAIL_ACTION,

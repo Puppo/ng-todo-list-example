@@ -6,7 +6,6 @@ import { Actions, EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
 import { hot, cold } from 'jasmine-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs/Observable';
-import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
 
@@ -15,7 +14,6 @@ import { AuthService } from '../../shared/services/auth/auth.service';
 import * as fromRoute from '../../../app/store/actions';
 import * as fromEffects from './login.effect';
 import * as fromActions from '../actions/login.actions';
-import { Injectable } from '@angular/core';
 
 describe('LoginEffect', () => {
   let actions$: Observable<any>;
@@ -54,8 +52,8 @@ describe('LoginEffect', () => {
     it('should return a LoginSuccessActiondata from LoginAction', () => {
       spyOn(service, 'login').and.returnValue(of(token));
 
-      const action = new fromActions.LoginAction(email, password);
-      const completion = new fromActions.LoginSuccessAction(token, email);
+      const action = fromActions.loginAction({email, password});
+      const completion = fromActions.loginSuccessAction({token, email});
 
       actions$ = hot('-a', { a: action });
       const expected = cold('-b', { b: completion });
@@ -63,11 +61,13 @@ describe('LoginEffect', () => {
       expect(effects.login$).toBeObservable(expected);
     });
 
-    it('should return a LoginFailAction 'Invalid Login' from LoginAction', () => {
+    it(`should return a LoginFailAction 'Invalid Login' from LoginAction`, () => {
       spyOn(service, 'login').and.returnValue(of(null));
 
-      const action = new fromActions.LoginAction(email, password);
-      const completion = new fromActions.LoginFailAction(invalidLoginError);
+      const action = fromActions.loginAction({email, password});
+      const completion = fromActions.loginFailAction({
+        error: invalidLoginError
+      });
 
       actions$ = hot('-a', { a: action });
       const expected = cold('-b', { b: completion });
@@ -78,8 +78,10 @@ describe('LoginEffect', () => {
     it('should return a LoginFailAction from LoginAction', () => {
       spyOn(service, 'login').and.returnValue(_throw(fatalError));
 
-      const action = new fromActions.LoginAction(email, password);
-      const completion = new fromActions.LoginFailAction(fatalError);
+      const action = fromActions.loginAction({email, password});
+      const completion = fromActions.loginFailAction({
+        error: fatalError
+      });
 
       actions$ = hot('-a', { a: action });
       const expected = cold('-b', { b: completion });
@@ -94,8 +96,8 @@ describe('LoginEffect', () => {
     });
 
     it('should return a redirect action from LoginSuccessAction', () => {
-      const action = new fromActions.LoginSuccessAction(token, email);
-      const completion = new fromRoute.Go({
+      const action = fromActions.loginSuccessAction({token, email});
+      const completion = fromRoute.go({
         path: ['/todo']
       });
 
@@ -112,8 +114,8 @@ describe('LoginEffect', () => {
     });
 
     it('should return a redirect action from LogoutAction', () => {
-      const action = new fromActions.LogoutAction();
-      const completion = new fromRoute.Go({
+      const action = fromActions.logoutAction();
+      const completion = fromRoute.go({
         path: ['/auth']
       });
 

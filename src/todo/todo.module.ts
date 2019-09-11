@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { reducers, effects } from './store';
+import { effects, TODO_REDUCER_TOKEN } from './store';
 
 import { DashboardModule } from './dashboard';
 import { TodoSharedModule } from './shared';
@@ -29,7 +29,7 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     TodoSharedModule.forRoot(),
     DashboardModule,
-    StoreModule.forFeature('todo', reducers),
+    StoreModule.forFeature('todo', TODO_REDUCER_TOKEN),
     EffectsModule.forFeature(effects)
   ]
 })

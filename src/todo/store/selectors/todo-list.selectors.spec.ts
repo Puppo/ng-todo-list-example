@@ -1,11 +1,9 @@
 import { StoreModule, Store, combineReducers } from '@ngrx/store';
-import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 
 import { TestBed } from '@angular/core/testing';
 
 import { ITodo } from '../../shared/models';
 
-import * as fromRoot from '../../../app/store';
 import * as fromReducers from '../reducers/index';
 import * as fromActions from '../actions/todo-list.actions';
 import * as fromSelectors from './todo-list.selectors';
@@ -39,8 +37,7 @@ describe('Todo List Selectors', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          ...fromRoot.reducers,
-          todo: combineReducers(fromReducers.reducers)
+          todo: combineReducers(fromReducers.todoReducers)
         })
       ]
     });

@@ -2,7 +2,6 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { By } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material';
 
 import { Store } from '@ngrx/store';
@@ -23,15 +22,8 @@ describe('LoginComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        AuthSharedModule
-      ],
-      providers: [
-        { provide: Store, useFactory: getStoreStub },
-      ],
+      imports: [CommonModule, ReactiveFormsModule, MatButtonModule, AuthSharedModule],
+      providers: [{ provide: Store, useFactory: getStoreStub }],
       declarations: [LoginComponent]
     });
 
@@ -40,7 +32,6 @@ describe('LoginComponent', () => {
     el = fixture.debugElement;
     fb = TestBed.get(FormBuilder);
     store = el.injector.get(Store);
-
   });
 
   afterEach(() => {
@@ -58,7 +49,7 @@ describe('LoginComponent', () => {
     });
     component.submit(form);
 
-    const action = new fromActions.LoginAction(email, password);
+    const action = fromActions.loginAction({ email, password });
     expect(dispatch).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(action);
   });

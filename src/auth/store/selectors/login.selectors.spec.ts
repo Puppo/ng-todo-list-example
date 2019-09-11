@@ -1,9 +1,7 @@
 import { StoreModule, Store, combineReducers } from '@ngrx/store';
-import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 
 import { TestBed } from '@angular/core/testing';
 
-import * as fromRoot from '../../../app/store';
 import * as fromReducers from '../reducers/index';
 import * as fromActions from '../actions/login.actions';
 import * as fromSelectors from './login.selectors';
@@ -20,8 +18,7 @@ describe('Login Selectors', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          ...fromRoot.reducers,
-          auth: combineReducers(fromReducers.reducers)
+          auth: combineReducers(fromReducers.authReducers)
         })
       ]
     });
@@ -33,9 +30,7 @@ describe('Login Selectors', () => {
     it('should return state of login store slice', () => {
       let result;
 
-      store
-        .select(fromSelectors.getLoginSelector)
-        .subscribe(value => (result = value));
+      store.select(fromSelectors.getLoginSelector).subscribe(value => (result = value));
 
       expect(result).toEqual({
         email: null,
@@ -44,7 +39,7 @@ describe('Login Selectors', () => {
         error: null
       });
 
-      store.dispatch(new fromActions.LoginSuccessAction(token, email));
+      store.dispatch(fromActions.loginSuccessAction({ token, email }));
 
       expect(result).toEqual({
         email,
@@ -59,13 +54,11 @@ describe('Login Selectors', () => {
     it('should return the login email state', () => {
       let result;
 
-      store
-        .select(fromSelectors.getLoginEmailSelector)
-        .subscribe(value => (result = value));
+      store.select(fromSelectors.getLoginEmailSelector).subscribe(value => (result = value));
 
       expect(result).toBeNull();
 
-      store.dispatch(new fromActions.LoginSuccessAction(token, email));
+      store.dispatch(fromActions.loginSuccessAction({ token, email }));
 
       expect(result).toEqual(email);
     });
@@ -75,13 +68,11 @@ describe('Login Selectors', () => {
     it('should return the login token state', () => {
       let result;
 
-      store
-        .select(fromSelectors.getLoginTokenSelector)
-        .subscribe(value => (result = value));
+      store.select(fromSelectors.getLoginTokenSelector).subscribe(value => (result = value));
 
       expect(result).toBeNull();
 
-      store.dispatch(new fromActions.LoginSuccessAction(token, email));
+      store.dispatch(fromActions.loginSuccessAction({ token, email }));
 
       expect(result).toEqual(token);
     });
@@ -91,13 +82,11 @@ describe('Login Selectors', () => {
     it('should return the login loading state', () => {
       let result;
 
-      store
-        .select(fromSelectors.getLoginLoadingSelector)
-        .subscribe(value => (result = value));
+      store.select(fromSelectors.getLoginLoadingSelector).subscribe(value => (result = value));
 
       expect(result).toEqual(false);
 
-      store.dispatch(new fromActions.LoginAction(email, password));
+      store.dispatch(fromActions.loginAction({ email, password }));
 
       expect(result).toEqual(true);
     });
@@ -107,13 +96,11 @@ describe('Login Selectors', () => {
     it('should return the login error state', () => {
       let result;
 
-      store
-        .select(fromSelectors.getLoginErrorSelector)
-        .subscribe(value => (result = value));
+      store.select(fromSelectors.getLoginErrorSelector).subscribe(value => (result = value));
 
       expect(result).toBeNull();
 
-      store.dispatch(new fromActions.LoginFailAction(error));
+      store.dispatch(fromActions.loginFailAction({ error }));
 
       expect({ ...result }).toEqual({ ...error });
     });
@@ -123,13 +110,11 @@ describe('Login Selectors', () => {
     it('should return the login has error state', () => {
       let result;
 
-      store
-        .select(fromSelectors.getLoginHasErrorSelector)
-        .subscribe(value => (result = value));
+      store.select(fromSelectors.getLoginHasErrorSelector).subscribe(value => (result = value));
 
       expect(result).toBeFalsy();
 
-      store.dispatch(new fromActions.LoginFailAction(error));
+      store.dispatch(fromActions.loginFailAction({ error }));
 
       expect(result).toBeTruthy();
     });
@@ -139,13 +124,11 @@ describe('Login Selectors', () => {
     it('should return the login error message state', () => {
       let result;
 
-      store
-        .select(fromSelectors.getLoginErrorMessageSelector)
-        .subscribe(value => (result = value));
+      store.select(fromSelectors.getLoginErrorMessageSelector).subscribe(value => (result = value));
 
       expect(result).toBeFalsy();
 
-      store.dispatch(new fromActions.LoginFailAction(error));
+      store.dispatch(fromActions.loginFailAction({ error }));
 
       expect(result).toBeTruthy();
     });

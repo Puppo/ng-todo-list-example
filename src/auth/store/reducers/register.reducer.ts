@@ -1,4 +1,4 @@
-import { createReducer, on, Action } from '@ngrx/store';
+import { createReducer, on, Action, ActionReducer } from '@ngrx/store';
 import * as fromActions from '../actions';
 import { Injectable } from '@angular/core';
 
@@ -11,20 +11,24 @@ export interface IRegisterState {
 @Injectable()
 export class RegisterReducerService {
 
-  protected readonly INIT_REGISTER_STATE: IRegisterState = {
-    loading: false,
-    success: false,
-    error: null
-  };
+  protected get initRegisterState(): IRegisterState {
+    return {
+      loading: false,
+      success: false,
+      error: null
+    };
+  }
 
-  protected featureReducer = createReducer(
-    this.INIT_REGISTER_STATE,
-    on(fromActions.registerAction, this.handleRegister),
-    on(fromActions.registerSuccessAction, this.handleRegisterSuccess),
-    on(fromActions.registerFailAction, this.handleRegisterFail)
-  );
+  protected get featureReducer(): ActionReducer<IRegisterState, Action> {
+    return createReducer(
+      this.initRegisterState,
+      on(fromActions.registerAction, this.handleRegister),
+      on(fromActions.registerSuccessAction, this.handleRegisterSuccess),
+      on(fromActions.registerFailAction, this.handleRegisterFail)
+    );
+  }
 
-  reducer(state: IRegisterState | undefined, action: Action) {
+  reducer(state: IRegisterState | undefined, action: Action): IRegisterState {
     return this.featureReducer(state, action);
   }
 

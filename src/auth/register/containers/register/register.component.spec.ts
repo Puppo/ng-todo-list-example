@@ -23,15 +23,8 @@ describe('RegisterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        AuthSharedModule
-      ],
-      providers: [
-        { provide: Store, useFactory: getStoreStub },
-      ],
+      imports: [CommonModule, ReactiveFormsModule, MatButtonModule, AuthSharedModule],
+      providers: [{ provide: Store, useFactory: getStoreStub }],
       declarations: [RegisterComponent]
     });
 
@@ -40,7 +33,6 @@ describe('RegisterComponent', () => {
     el = fixture.debugElement;
     fb = TestBed.get(FormBuilder);
     store = el.injector.get(Store);
-
   });
 
   afterEach(() => {
@@ -58,7 +50,7 @@ describe('RegisterComponent', () => {
     });
     component.submit(form);
 
-    const action = new fromActions.RegisterAction(email, password);
+    const action = fromActions.registerAction({ email, password });
     expect(dispatch).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(action);
   });

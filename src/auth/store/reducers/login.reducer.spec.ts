@@ -2,23 +2,33 @@ import * as fromLogin from './login.reducer';
 import * as fromActions from '../actions/login.actions';
 
 describe('LoginReducer', () => {
+  let service: fromLogin.LoginReducerService;
+  const initLoginState: fromLogin.ILoginState = {
+    email: null,
+    token: null,
+    loading: false,
+    error: null
+  };
+
+  afterEach(() => {
+    service = new fromLogin.LoginReducerService();
+  });
+
   describe('undefined action', () => {
     it('should return the default state', () => {
-      const { INIT_LOGIN_STATE } = fromLogin;
       const action = {} as any;
-      const state = fromLogin.reducer(undefined, action);
+      const state = service.reducer(undefined, action);
 
-      expect(state).toBe(INIT_LOGIN_STATE);
+      expect(state).toEqual(initLoginState);
     });
   });
 
   describe('LOGIN_ACTION action', () => {
     it('should set loading to true', () => {
-      const { INIT_LOGIN_STATE } = fromLogin;
       const email = 'test@test.com';
       const password = '123456';
-      const action = new fromActions.LoginAction(email, password);
-      const state = fromLogin.reducer(INIT_LOGIN_STATE, action);
+      const action = fromActions.loginAction({ email, password });
+      const state = service.reducer(initLoginState, action);
 
       expect(state.loading).toEqual(true);
       expect(state.email).toBeNull();
@@ -29,11 +39,10 @@ describe('LoginReducer', () => {
 
   describe('LOGIN_SUCCESS_ACTION action', () => {
     it('should set user data', () => {
-      const { INIT_LOGIN_STATE } = fromLogin;
       const email = 'test@test.com';
       const token = 'erf$35tg';
-      const action = new fromActions.LoginSuccessAction(token, email);
-      const state = fromLogin.reducer(INIT_LOGIN_STATE, action);
+      const action = fromActions.loginSuccessAction({ token, email });
+      const state = service.reducer(initLoginState, action);
 
       expect(state.loading).toEqual(false);
       expect(state.email).toEqual(email);
@@ -44,10 +53,9 @@ describe('LoginReducer', () => {
 
   describe('LOGIN_FAIL_ACTION action', () => {
     it('should set error', () => {
-      const { INIT_LOGIN_STATE } = fromLogin;
       const error = { message: 'Fatal Exception' };
-      const action = new fromActions.LoginFailAction(error);
-      const state = fromLogin.reducer(INIT_LOGIN_STATE, action);
+      const action = fromActions.loginFailAction({ error });
+      const state = service.reducer(initLoginState, action);
 
       expect(state.loading).toEqual(false);
       expect(state.email).toBeNull();
@@ -58,9 +66,8 @@ describe('LoginReducer', () => {
 
   describe('LOG_OUT_ACTION action', () => {
     it('should reset user', () => {
-      const { INIT_LOGIN_STATE } = fromLogin;
-      const action = new fromActions.LogoutAction();
-      const state = fromLogin.reducer(INIT_LOGIN_STATE, action);
+      const action = fromActions.logoutAction();
+      const state = service.reducer(initLoginState, action);
 
       expect(state.loading).toEqual(false);
       expect(state.email).toBeNull();

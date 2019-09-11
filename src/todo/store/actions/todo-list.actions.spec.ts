@@ -4,9 +4,7 @@ import { ITodo } from '../../shared/models';
 describe('Todo List', () => {
   describe('ListActions', () => {
     it('should create an action', () => {
-      const dueDate = Date.now();
-      const description = 'todo description';
-      const action = new fromTodoList.TodoListAction();
+      const action = fromTodoList.todoListAction();
 
       expect({ ...action }).toEqual({
         type: fromTodoList.TODO_LIST_ACTION
@@ -36,7 +34,7 @@ describe('Todo List', () => {
           updateAt: new Date(2018, 1, 3).getTime()
         }
       ];
-      const action = new fromTodoList.TodoListSuccessAction(todos);
+      const action = fromTodoList.todoListSuccessAction({ todos });
 
       expect({ ...action }).toEqual({
         type: fromTodoList.TODO_LIST_SUCCESS_ACTION,
@@ -49,7 +47,7 @@ describe('Todo List', () => {
   describe('ListFailActions', () => {
     it('should create an action', () => {
       const error = { message: 'Fatal exception' };
-      const action = new fromTodoList.TodoListFailAction(error);
+      const action = fromTodoList.todoListFailAction({ error });
 
       expect({ ...action }).toEqual({
         type: fromTodoList.TODO_LIST_FAIL_ACTION,
